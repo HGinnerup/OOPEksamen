@@ -28,7 +28,8 @@ namespace OopEksamen.Classes.Transactions
                 if (User.Balance - Amount < User.Credit) throw new InsufficientCreditsException(User, Product);
             else
                 if (User.Balance - Amount < 0) throw new InsufficientCreditsException(User, Product);
-            
+
+            User.Balance += Amount;
             Executed = true;
         }
 
