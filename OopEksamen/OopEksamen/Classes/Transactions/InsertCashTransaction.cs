@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OopEksamen.Structs;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,7 +7,9 @@ namespace OopEksamen.Classes.Transactions
 {
     public class InsertCashTransaction : Transaction
     {
-
+        public InsertCashTransaction(ulong id, User user, Money amount) : base(id, user, amount)
+        {
+        }
 
         /// <summary>
         /// 

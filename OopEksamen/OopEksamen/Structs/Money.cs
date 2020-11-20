@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace OopEksamen.Structs
@@ -16,6 +17,8 @@ namespace OopEksamen.Structs
         public static implicit operator Money(int value) => new Money(value);
         public static implicit operator int(Money currency) => currency.Value;
 
-        public override string ToString() => $"{((decimal)Value) / 100} DKK";
+        public override string ToString() {
+            return (((decimal)Value) / 100).ToString("#.00 DKK", CultureInfo.CurrentCulture);
+        }
     }
 }
