@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using OopEksamen.Structs;
+using OopEksamen.Utilities;
 
 namespace OopEksamen.Classes
 {
@@ -20,11 +21,19 @@ namespace OopEksamen.Classes
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public string Username { get; set; }
-        public string Email { get; set; }
-        public int Balance { get; set; } = 0;
+
+        private string _email;
+        public string Email
+        {
+            get { return _email; }
+            set
+            {
+                if (Regexes.Email.IsMatch(value)) _email = value;
+                else throw new ArgumentException($@"Invalid email ""{_email}""");
+            }
+        }
+        public Money Balance { get; set; } = 0;
         public Money Credit { get; set; } = 0;
-
-
 
         public override string ToString()
         {
