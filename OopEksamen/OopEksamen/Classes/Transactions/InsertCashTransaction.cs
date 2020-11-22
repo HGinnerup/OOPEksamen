@@ -21,6 +21,7 @@ namespace OopEksamen.Classes.Transactions
             if (Executed) throw new InvalidOperationException("Transaction has already been executed");
             if (Amount < 0 && User.Balance - Amount < 0) throw new InvalidOperationException("Unsufficient Balance");
             Executed = true;
+            User.Balance += Amount;
         }
 
         public override string ToString()

@@ -7,6 +7,11 @@ namespace OopEksamen.Classes.Transactions
 {
     public class BuyTransaction : Transaction
     {
+        public BuyTransaction(ulong id, User user, Product product) : base(id, user, -product.Price)
+        {
+            Product = product;
+            Amount = product.Price;
+        }
         public BuyTransaction(ulong id, User user, Money amount, Product product) : base(id, user, amount)
         {
             Product = product;
