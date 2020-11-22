@@ -28,6 +28,9 @@ namespace OopEksamenTest.Utilities
             Assert.IsFalse(Regexes.Email.IsMatch("eksempel@-mit_domain.dk"));
             Assert.IsFalse(Regexes.Email.IsMatch("eksempel@mit_domain.dk"));
             Assert.IsFalse(Regexes.Email.IsMatch("eksempel@-mitdomain.dk"));
+            Assert.IsFalse(Regexes.Email.IsMatch(""));
+            Assert.IsFalse(Regexes.Email.IsMatch("@"));
+            Assert.IsFalse(Regexes.Email.IsMatch("@."));
             Assert.IsFalse(Regexes.Email.IsMatch("a@b."));
             Assert.IsFalse(Regexes.Email.IsMatch("a@.c"));
             Assert.IsFalse(Regexes.Email.IsMatch("a@bb"));
