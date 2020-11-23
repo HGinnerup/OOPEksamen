@@ -33,41 +33,19 @@ namespace OopEksamenTest.Classes
         public void TestEmail()
         {
             // Valid Email
-            Exception exception = null;
-            try { new User(1, "Anders", "Hansen", "AndersHansen", "anders@hansen.dk"); }
-            catch (Exception e) { exception = e;  }
-            Assert.IsNull(exception);
+            var user = new User(1, "Anders", "Hansen", "AndersHansen", "anders@hansen.dk");
+            Assert.AreEqual("anders@hansen.dk", user.Email);
+            user.Email = "ole@jensen.dk";
+            Assert.AreEqual("ole@jensen.dk", user.Email);
 
             // Invalid Email
-            exception = null;
-            try { new User(1, "Anders", "Hansen", "AndersHansen", "anders@@hansen.dk"); }
-            catch (Exception e) { exception = e; }
-            Assert.IsNotNull(exception);
+            Assert.ThrowsException<Exception>(() => new User(1, "Anders", "Hansen", "AndersHansen", "anders@@hansen.dk"));
+            Assert.ThrowsException<Exception>(() => new User(1, "Anders", "Hansen", "AndersHansen", ""));
+            Assert.ThrowsException<Exception>(() => new User(1, "Anders", "Hansen", "AndersHansen", null));
 
-            exception = null;
-            try { NewValidUser().Email = "anders@@hansen.dk"; }
-            catch (Exception e) { exception = e; }
-            Assert.IsNotNull(exception);
-
-            exception = null;
-            try { new User(1, "Anders", "Hansen", "AndersHansen", ""); }
-            catch (Exception e) { exception = e; }
-            Assert.IsNotNull(exception);
-
-            exception = null;
-            try { NewValidUser().Email = ""; }
-            catch (Exception e) { exception = e; }
-            Assert.IsNotNull(exception);
-
-            exception = null;
-            try { new User(1, "Anders", "Hansen", "AndersHansen", null); }
-            catch (Exception e) { exception = e; }
-            Assert.IsNotNull(exception);
-
-            exception = null;
-            try { NewValidUser().Email = null; }
-            catch (Exception e) { exception = e; }
-            Assert.IsNotNull(exception);
+            Assert.ThrowsException<Exception>(() => NewValidUser().Email = "anders@@hansen.dk");
+            Assert.ThrowsException<Exception>(() => NewValidUser().Email = "");
+            Assert.ThrowsException<Exception>(() => NewValidUser().Email = null);
         }
 
         [TestMethod]

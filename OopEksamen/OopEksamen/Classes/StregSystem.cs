@@ -3,16 +3,25 @@ using OopEksamen.Interfaces;
 using OopEksamen.Structs;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
 namespace OopEksamen.Classes
 {
-    public class StregSystem : IStregSystem
+    public class StregSystem : IStregSystem, IDisposable
     {
         private List<Product> _products { get; set; }
         private List<Transaction> _transactions { get; set; }
         private List<User> _users { get; set; }
+
+        private ActionLogger _transactionLogger { get; }
+
+
+        public StregSystem(string logDirectory = "logs", string dataPath = "data")
+        {
+            _transactionLogger = new ActionLogger(Path.Combine(logDirectory, "transactions.log"));
+        }
 
 
         public IEnumerable<Product> ActiveProducts { get; set; } = new List<Product>();
@@ -25,6 +34,7 @@ namespace OopEksamen.Classes
         {
             var transaction = new BuyTransaction(getNewTransactionID(), user, product);
             ExecuteTransaction(transaction);
+            _transactionLogger.Log(transaction.ToString());
             return transaction;
         }
         public InsertCashTransaction AddCreditsToAccount(User user, Money amount)
@@ -59,6 +69,11 @@ namespace OopEksamen.Classes
         public IEnumerable<User> GetUsers(Func<User, bool> predicate)
         {
             return _users.Where(predicate);
+        }
+
+        public void Dispose()
+        {
+            _transactionLogger.Dispose();
         }
     }
 }
