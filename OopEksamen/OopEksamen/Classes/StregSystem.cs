@@ -21,16 +21,25 @@ namespace OopEksamen.Classes
 
         private uint _nextTransactionId { get; set; } = 0;
         private uint getNewTransactionID() => _nextTransactionId++;
-
-        public InsertCashTransaction AddCreditsToAccount(User user, Money amount)
-        {
-            return new InsertCashTransaction(getNewTransactionID(), user, amount);
-        }
-
         public BuyTransaction BuyProduct(User user, Product product)
         {
-            return new BuyTransaction(getNewTransactionID(), user, product);
+            var transaction = new BuyTransaction(getNewTransactionID(), user, product);
+            ExecuteTransaction(transaction);
+            return transaction;
         }
+        public InsertCashTransaction AddCreditsToAccount(User user, Money amount)
+        {
+            var transaction = new InsertCashTransaction(getNewTransactionID(), user, amount);
+            ExecuteTransaction(transaction);
+            return transaction;
+        }
+
+        private void ExecuteTransaction(Transaction transaction)
+        {
+            Console.WriteLine("StregSystem: WRITETHISTOLOG");
+            transaction.Execute();
+        }
+
 
         public Product GetProductByID(uint id)
         {
