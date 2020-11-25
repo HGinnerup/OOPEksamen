@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OopEksamen.Classes;
+using OopEksamen.Models;
 using OopEksamen.Structs;
 using System;
 using System.Collections.Generic;
@@ -30,22 +30,28 @@ namespace OopEksamenTest.Classes
         }
 
         [TestMethod]
-        public void TestEmail()
+        [DataRow("anders@hansen.dk")]
+        [DataRow("ole@jensen.dk")]
+        [DataRow("hginne19@student.aau.dk")]
+        [DataRow("HGinne19@student.AAU.dk")]
+        [DataRow(null)]
+        public void TestValidEmail(string? email)
         {
-            // Valid Email
-            var user = new User(1, "Anders", "Hansen", "AndersHansen", "anders@hansen.dk");
-            Assert.AreEqual("anders@hansen.dk", user.Email);
-            user.Email = "ole@jensen.dk";
-            Assert.AreEqual("ole@jensen.dk", user.Email);
+            var user1 = new User(1, "Anders", "Hansen", "AndersHansen", email);
+            Assert.AreEqual(email, user1.Email);
 
-            // Invalid Email
-            Assert.ThrowsException<Exception>(() => new User(1, "Anders", "Hansen", "AndersHansen", "anders@@hansen.dk"));
-            Assert.ThrowsException<Exception>(() => new User(1, "Anders", "Hansen", "AndersHansen", ""));
-            Assert.ThrowsException<Exception>(() => new User(1, "Anders", "Hansen", "AndersHansen", null));
+            var user2 = new User(1, "Anders", "Hansen", "AndersHansen", "a@b.c");
+            user2.Email = email;
+            Assert.AreEqual(email, user2.Email);
+        }
 
-            Assert.ThrowsException<Exception>(() => NewValidUser().Email = "anders@@hansen.dk");
-            Assert.ThrowsException<Exception>(() => NewValidUser().Email = "");
-            Assert.ThrowsException<Exception>(() => NewValidUser().Email = null);
+        [TestMethod]
+        [DataRow("anders@@hansen.dk")]
+        [DataRow("")]
+        public void TestInvalidEmail(string email)
+        {
+            Assert.ThrowsException<ArgumentException>(() => new User(1, "Anders", "Hansen", "AndersHansen", email));
+            Assert.ThrowsException<ArgumentException>(() => NewValidUser().Email = email);
         }
 
         [TestMethod]
