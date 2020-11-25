@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace OopEksamen.Classes.Transactions
+namespace OopEksamen.Models.Transactions
 {
     public class BuyTransaction : Transaction
     {

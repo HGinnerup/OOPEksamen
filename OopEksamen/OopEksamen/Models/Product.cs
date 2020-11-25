@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace OopEksamen.Classes
+namespace OopEksamen.Models
 {
     public class Product
     {

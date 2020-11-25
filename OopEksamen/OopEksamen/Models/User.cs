@@ -4,7 +4,7 @@ using System.Text;
 using OopEksamen.Structs;
 using OopEksamen.Utilities;
 
-namespace OopEksamen.Classes
+namespace OopEksamen.Models
 {
     public class User : IComparable
     {

@@ -1,11 +1,11 @@
-﻿using System;
+﻿using OopEksamen.Classes;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Transactions;
 
 namespace OopEksamen.Interfaces
 {
-    public interface ITransactionManager
+    interface ITransactionManager : IDisposable
     {
         IEnumerable<Transaction> Transactions { get; }
         IEnumerable<Transaction> GetTransactions(Func<Transaction, bool> predicate);

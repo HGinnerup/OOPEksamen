@@ -11,15 +11,17 @@ namespace OopEksamen.Classes
 {
     public class StregSystem : IStregSystem, IDisposable
     {
-        private List<Product> _products { get; set; }
-        private List<Transaction> _transactions { get; set; }
-        private List<User> _users { get; set; }
-
+        private IProductManager _productManager { get; set; }
+        private IUserManager _userManager { get; set; }
+        private ITransactionManager _transactionManager { get; set; }
         private ActionLogger _transactionLogger { get; }
 
 
         public StregSystem(string logDirectory = "logs", string dataPath = "data")
         {
+            _productManager = new ProductManagerCsv(Path.Combine(dataPath, "products.csv"));
+            _userManager = new UserManagerCsv(Path.Combine(dataPath, "users.csv"));
+            _transactionManager = new TransactionManagerCsv(Path.Combine(dataPath, "transactions.csv"));
             _transactionLogger = new ActionLogger(Path.Combine(logDirectory, "transactions.log"));
         }
 
@@ -34,7 +36,6 @@ namespace OopEksamen.Classes
         {
             var transaction = new BuyTransaction(getNewTransactionID(), user, product);
             ExecuteTransaction(transaction);
-            _transactionLogger.Log(transaction.ToString());
             return transaction;
         }
         public InsertCashTransaction AddCreditsToAccount(User user, Money amount)
@@ -46,33 +47,36 @@ namespace OopEksamen.Classes
 
         private void ExecuteTransaction(Transaction transaction)
         {
-            Console.WriteLine("StregSystem: WRITETHISTOLOG");
+            _transactionLogger.Log(transaction.ToString());
             transaction.Execute();
         }
 
 
         public Product GetProductByID(uint id)
         {
-            return _products.FirstOrDefault(i => i.ID == id);
+            return _productManager.GetProductByID(id);
         }
 
         public IEnumerable<Transaction> GetTransactions(User user, int count)
         {
-            return _transactions.Where(i => i.User == user).Take(count);
+            return _transactionManager.GetTransactions(i => i.User.Equals(user)).Take(count);
         }
 
         public User GetUserByUsername(string username)
         {
-            return _users.FirstOrDefault(i => i.Username == username);
+            return _userManager.GetUserByUsername(username);
         }
 
         public IEnumerable<User> GetUsers(Func<User, bool> predicate)
         {
-            return _users.Where(predicate);
+            return _userManager.GetUsers(predicate);
         }
 
         public void Dispose()
         {
+            _productManager.Dispose();
+            _userManager.Dispose();
+            _transactionManager.Dispose();
             _transactionLogger.Dispose();
         }
     }
