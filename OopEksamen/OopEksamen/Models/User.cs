@@ -28,7 +28,8 @@ namespace OopEksamen.Models
             get { return _email; }
             set
             {
-                if (Regexes.Email.IsMatch(value)) _email = value;
+                if (value == null) _email = value;
+                else if (Regexes.Email.IsMatch(value)) _email = value;
                 else throw new ArgumentException($@"Invalid email ""{_email}""");
             }
         }

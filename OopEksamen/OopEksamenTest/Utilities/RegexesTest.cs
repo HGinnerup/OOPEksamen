@@ -10,33 +10,41 @@ namespace OopEksamenTest.Utilities
     public class RegexesTest
     {
         [TestMethod]
-        public void EmailTest()
+        [DataRow("eksempel@domain.dk")]
+        [DataRow("hginne19@student.aau.dk")]
+        [DataRow("HGinne19@student.AAU.dk")]
+        [DataRow("a@b.c")]
+        [DataRow("a.a@b.f.c")]
+        [DataRow("a.a@B.f..c")]
+        [DataRow("a._A@b.f..c")]
+        [DataRow("_a@b.c")]
+        [DataRow("_a@b-.-c")]
+        [DataRow("pizza@shrimp.burger")]
+        public void EmailTestValid(string email)
         {
-            Assert.IsTrue(Regexes.Email.IsMatch("eksempel@domain.dk"));
-            Assert.IsTrue(Regexes.Email.IsMatch("hginne19@student.aau.dk"));
-            Assert.IsTrue(Regexes.Email.IsMatch("HGinne19@student.AAU.dk"));
-            Assert.IsTrue(Regexes.Email.IsMatch("a@b.c"));
-            Assert.IsTrue(Regexes.Email.IsMatch("a.a@b.f.c"));
-            Assert.IsTrue(Regexes.Email.IsMatch("a.a@B.f..c"));
-            Assert.IsTrue(Regexes.Email.IsMatch("a._A@b.f..c"));
-            Assert.IsTrue(Regexes.Email.IsMatch("_a@b.c"));
-            Assert.IsTrue(Regexes.Email.IsMatch("_a@b-.-c"));
-            Assert.IsTrue(Regexes.Email.IsMatch("pizza@shrimp.burger"));
-
-            Assert.IsFalse(Regexes.Email.IsMatch("eksempel(2)@-mit_domain.dk"));
-            Assert.IsFalse(Regexes.Email.IsMatch("eksempel(2)@mitdomain.dk"));
-            Assert.IsFalse(Regexes.Email.IsMatch("eksempel@-mit_domain.dk"));
-            Assert.IsFalse(Regexes.Email.IsMatch("eksempel@mit_domain.dk"));
-            Assert.IsFalse(Regexes.Email.IsMatch("eksempel@-mitdomain.dk"));
-            Assert.IsFalse(Regexes.Email.IsMatch(""));
-            Assert.IsFalse(Regexes.Email.IsMatch("@"));
-            Assert.IsFalse(Regexes.Email.IsMatch("@."));
-            Assert.IsFalse(Regexes.Email.IsMatch("a@b."));
-            Assert.IsFalse(Regexes.Email.IsMatch("a@.c"));
-            Assert.IsFalse(Regexes.Email.IsMatch("a@bb"));
-            Assert.IsFalse(Regexes.Email.IsMatch("a@b.c_"));
-            Assert.IsFalse(Regexes.Email.IsMatch("a@_b.c"));
-            Assert.IsFalse(Regexes.Email.IsMatch("🍕@🍤.🍔"));
+            Assert.IsTrue(Regexes.Email.IsMatch(email));
         }
+
+        [TestMethod]
+        [DataRow("eksempel(2)@-mit_domain.dk")]
+        [DataRow("eksempel(2)@mitdomain.dk")]
+        [DataRow("eksempel@-mit_domain.dk")]
+        [DataRow("eksempel@mit_domain.dk")]
+        [DataRow("eksempel@-mitdomain.dk")]
+        [DataRow("")]
+        [DataRow("@")]
+        [DataRow("@.")]
+        [DataRow("a@b.")]
+        [DataRow("a@.c")]
+        [DataRow("a@bb")]
+        [DataRow("a@b.c_")]
+        [DataRow("a@_b.c")]
+        [DataRow("🍕@🍤.🍔")]
+        public void EmailTestInvalid(string email)
+        {
+            Assert.IsFalse(Regexes.Email.IsMatch(email));
+        }
+
+
     }
 }

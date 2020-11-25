@@ -35,7 +35,7 @@ namespace OopEksamenTest.Classes
         [DataRow("hginne19@student.aau.dk")]
         [DataRow("HGinne19@student.AAU.dk")]
         [DataRow(null)]
-        public void TestValidEmail(string? email)
+        public void TestValidEmail(string email)
         {
             var user1 = new User(1, "Anders", "Hansen", "AndersHansen", email);
             Assert.AreEqual(email, user1.Email);
