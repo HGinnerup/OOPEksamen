@@ -20,14 +20,15 @@ namespace OopEksamen.Classes
 
         public StregSystem(string logDirectory = "logs", string dataPath = "data")
         {
-            _productManager = new ProductManagerCsv(Path.Combine(dataPath, "products.csv"));
+            _productManager = new ProductManagerCsv(Path.Combine(dataPath, "products.csv"), delimiter: ';');
+            ActiveProducts = _productManager.Products; //.Where(i => i.Active);
             _userManager = new UserManagerCsv(Path.Combine(dataPath, "users.csv"));
             _transactionManager = new TransactionManagerCsv(Path.Combine(dataPath, "transactions.csv"));
             _transactionLogger = new ActionLogger(Path.Combine(logDirectory, "transactions.log"));
         }
 
 
-        public IEnumerable<Product> ActiveProducts { get; set; } = new List<Product>();
+        public IEnumerable<Product> ActiveProducts { get; set; }
 
         public event UserBalanceNotification UserBalanceWarning;
 

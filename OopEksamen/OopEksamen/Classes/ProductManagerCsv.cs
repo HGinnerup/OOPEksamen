@@ -8,9 +8,11 @@ namespace OopEksamen.Classes
 {
     class ProductManagerCsv : CsvManagerBase<Product>, IProductManager
     {
+        public ProductManagerCsv(string filePath, char delimiter = ',', string newLine = null, Encoding encoding = null, uint headerLineCount = 1) : base(filePath, delimiter, newLine, encoding, headerLineCount)
+        {
+        }
 
         public string CsvPath { get; private set; }
-        public ProductManagerCsv(string csvPath) : base(csvPath) { }
 
         protected override string[] DataEncode(Product data)
         {

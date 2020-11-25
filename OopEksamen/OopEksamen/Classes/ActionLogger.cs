@@ -11,6 +11,9 @@ namespace OopEksamen.Classes
         public ActionLogger(string logPath)
         {
             LogPath = logPath;
+
+            
+            Directory.CreateDirectory(Path.GetDirectoryName(logPath)); // Ensure existance of directory
             _fileStream = File.OpenWrite(LogPath);
             _encoding = Encoding.UTF8;
         }

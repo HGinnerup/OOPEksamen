@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OopEksamen.Classes;
+using System;
 
 namespace OopEksamen
 {
@@ -6,6 +7,14 @@ namespace OopEksamen
     {
         static void Main(string[] args)
         {
+            var stregSystem = new StregSystem();
+
+            foreach(var product in stregSystem.ActiveProducts)
+            {
+                Console.WriteLine($"{product.ID}, {product.Name}, {product.Price}");
+            }
+
+
             Console.WriteLine("Hello World!");
         }
     }
