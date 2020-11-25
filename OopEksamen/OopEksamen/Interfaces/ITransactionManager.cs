@@ -1,4 +1,5 @@
 ﻿using OopEksamen.Classes;
+using OopEksamen.Models.Transactions;
 using System;
 using System.Collections.Generic;
 using System.Text;

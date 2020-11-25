@@ -1,5 +1,5 @@
-﻿using OopEksamen.Classes;
-using OopEksamen.Classes.Transactions;
+﻿using OopEksamen.Models;
+using OopEksamen.Models.Transactions;
 using OopEksamen.Structs;
 using System;
 using System.Collections.Generic;
