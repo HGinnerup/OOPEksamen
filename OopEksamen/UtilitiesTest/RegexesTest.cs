@@ -1,10 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OopEksamen.Utilities;
+using Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace OopEksamenTest.Utilities
+namespace UtilitiesTest
 {
     [TestClass]
     public class RegexesTest

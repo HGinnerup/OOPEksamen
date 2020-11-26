@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace OopEksamen.Utilities
+namespace Utilities
 {
     [AttributeUsage(AttributeTargets.Parameter, AllowMultiple = true, Inherited = true)]
     internal class RegexMatchAttribute : Attribute

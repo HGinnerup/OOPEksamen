@@ -74,7 +74,7 @@ namespace OopEksamen.Classes
                 if (line == null) break;
                 if (line == string.Empty) break;
 
-                var lineSplit = line.Split(_delimiter);
+                var lineSplit = Utilities.StringHandling.SplitString(line, _delimiter).ToArray();
 
                 yield return DataParse(lineSplit);
             }
