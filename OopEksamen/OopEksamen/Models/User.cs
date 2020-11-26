@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using OopEksamen.Structs;
-using OopEksamen.Utilities;
 
 namespace OopEksamen.Models
 {
@@ -29,7 +28,7 @@ namespace OopEksamen.Models
             set
             {
                 if (value == null) _email = value;
-                else if (Regexes.Email.IsMatch(value)) _email = value;
+                else if (Utilities.Regexes.Email.IsMatch(value)) _email = value;
                 else throw new ArgumentException($@"Invalid email ""{_email}""");
             }
         }

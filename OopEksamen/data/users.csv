@@ -1,11 +1,3 @@
-1,Nancy,Davolio,ndavo,40000,0
-2,Andrew,Fuller,afull,32900,0
-3,Janet,Leverling,jleve,5050,0
-4,Margaret,Peacock,mpeac,10000,0
-5,Steven,Buchanan,sbuch,400,0
-6,Michael,Suyama,msuya,50,0
-7,Robert,King,rking,-1000,0
-10,Laura,Callahan,lcall,103000,0
 1,Nancy,Davolio,ndavo,ndavo@sample.stregsystem.dk,40000,0
 2,Andrew,Fuller,afull,afull@sample.stregsystem.dk,32900,0
 3,Janet,Leverling,jleve,jleve@sample.stregsystem.dk,5050,0
@@ -14,3 +6,4 @@
 6,Michael,Suyama,msuya,msuya@sample.stregsystem.dk,50,0
 7,Robert,King,rking,rking@sample.stregsystem.dk,-1000,0
 10,Laura,Callahan,lcall,lcall@sample.stregsystem.dk,103000,0
+11,Anne,Dodsworth,adods,adods@sample.stregsystem.dk,0,0

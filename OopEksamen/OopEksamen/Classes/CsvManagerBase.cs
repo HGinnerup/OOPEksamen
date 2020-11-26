@@ -41,7 +41,18 @@ namespace OopEksamen.Classes
 
         private string DataToString(T data)
         {
-            return String.Join(_delimiter, DataEncode(data).ToArray());
+            var strings = DataEncode(data).ToArray();
+            for(var i=0; i<strings.Length; i++)
+            {
+                // Escape quotes
+                strings[i] = strings[i].Replace("\"", "\\\"");
+
+                // If contains delimiter, encapsulate in quotes to keep as óne field
+                if (strings[i].Contains(_delimiter))
+                    strings[i] = $"\"{strings[i]}\"";
+            }
+
+            return String.Join(_delimiter, strings);
         }
         private byte[] StringToBytes(string str)
         {
