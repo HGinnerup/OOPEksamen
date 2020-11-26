@@ -31,14 +31,15 @@ namespace UpdateOldData.Classes
             var price = int.Parse(data[2]);
             var deactivate_date = data[3] != "0";
 
-            return new Product()
-            {
-                ID = id,
-                Name = name,
-                Price = price,
-                Active = true,
-                CanBeBoughtOnCredit = true
-            };
+            return new Product(
+                iD: id,
+                name: name,
+                active: true,
+                price: price,
+                canBeBoughtOnCredit: true,
+                seasonStartDate: null,
+                seasonEndDate: null
+            );
         }
 
         public IEnumerable<Product> GetProducts() => GetData(); 

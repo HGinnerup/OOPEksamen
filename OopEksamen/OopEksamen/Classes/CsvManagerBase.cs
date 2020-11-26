@@ -25,7 +25,6 @@ namespace OopEksamen.Classes
             _headerLineCount = headerLineCount;
         }
 
-        private Type[] _types { get; set; }
         private char _delimiter { get; set; }
         private string _newLine { get; set; }
         private Encoding _encoding { get; set; }
@@ -67,7 +66,7 @@ namespace OopEksamen.Classes
         {
             _fileStream.Seek(0, SeekOrigin.End);
             _fileStream.Write(DataToBytes(data));
-            _fileStream.Write(StringToBytes(Environment.NewLine));
+            _fileStream.Write(StringToBytes(_newLine));
         }
 
         protected IEnumerable<T> GetData()

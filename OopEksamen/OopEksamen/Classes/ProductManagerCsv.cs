@@ -19,20 +19,27 @@ namespace OopEksamen.Classes
             return new string[] {
                 data.ID.ToString(),
                 data.Name,
-                ((int)data.Price).ToString()
+                data.Active.ToString(),
+                ((int)data.Price).ToString(),
+                data.CanBeBoughtOnCredit.ToString(),
+                data.SeasonStartDate.ToString(),
+                data.SeasonEndDate.ToString()
             };
         }
         protected override Product DataParse(string[] data)
         {
-            return new Product()
-            {
-                ID = uint.Parse(data[0]),
-                Name = data[1],
-                Price = int.Parse(data[2])
-            };
+            return new Product(
+                iD: uint.Parse(data[0]),
+                name: data[1],
+                active: bool.Parse(data[2]),
+                price: int.Parse(data[3]),
+                canBeBoughtOnCredit: bool.Parse(data[4]),
+                seasonStartDate: (data[5] != string.Empty) ? (DateTime?)DateTime.Parse(data[5]) : null,
+                seasonEndDate: (data[6] != string.Empty) ? (DateTime?)DateTime.Parse(data[6]) : null
+            );
         }
 
-        public IEnumerable<Product> Products => base.GetData();
+        public IEnumerable<Product> Products { get { return GetData(); } }
 
         public void AddProduct(Product product)
         {

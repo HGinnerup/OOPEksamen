@@ -1,5 +1,6 @@
 ﻿using OopEksamen.Classes;
 using System;
+using System.IO;
 
 namespace OopEksamen
 {
@@ -7,9 +8,10 @@ namespace OopEksamen
     {
         static void Main(string[] args)
         {
-            var stregSystem = new StregSystem();
+            var visualStudioSolutionPath = @"..\..\..\..";
+            using var stregSystem = new StregSystem(dataPath: Path.Join(visualStudioSolutionPath, @"data"));
 
-            foreach(var product in stregSystem.ActiveProducts)
+            foreach (var product in stregSystem.ActiveProducts)
             {
                 Console.WriteLine($"{product.ID}, {product.Name}, {product.Price}");
             }
