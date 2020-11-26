@@ -6,7 +6,7 @@ using System.Text;
 
 namespace StregsystemCLI.Interfaces
 {
-    interface IStregsystemUI
+    public interface IStregsystemUI
     {
         void DisplayUserNotFound(string username);
         void DisplayProductNotFound(string product);
@@ -20,5 +20,5 @@ namespace StregsystemCLI.Interfaces
         void Start();
         event StregsystemEvent CommandEntered;
     }
-    delegate void StregsystemEvent(string rawString, string command, string[] args);
+    public delegate void StregsystemEvent(string rawString, string command, string[] args);
 }

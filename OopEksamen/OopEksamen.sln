@@ -11,9 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StregsystemCLI", "Stregsyst
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpdateOldData", "UpdateOldData\UpdateOldData.csproj", "{C95F8525-8258-40D1-A84D-B05E9C22D303}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Shared\Utilities.csproj", "{6047C375-C24E-4E44-9631-40BE32AFCCE4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utilities", "Shared\Utilities.csproj", "{6047C375-C24E-4E44-9631-40BE32AFCCE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilitiesTest", "UtilitiesTest\UtilitiesTest.csproj", "{DCCB67E7-3733-40ED-A488-8905921EB132}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilitiesTest", "UtilitiesTest\UtilitiesTest.csproj", "{DCCB67E7-3733-40ED-A488-8905921EB132}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StregsystemCLITest", "StregsystemCLITest\StregsystemCLITest.csproj", "{4D67B6BE-D4E0-494B-ABAE-495600FCD0DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StregsystemController", "StregsystemController\StregsystemController.csproj", "{AEF9612B-FDE8-450F-B03F-74AC0EF767EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{DCCB67E7-3733-40ED-A488-8905921EB132}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCCB67E7-3733-40ED-A488-8905921EB132}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCCB67E7-3733-40ED-A488-8905921EB132}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D67B6BE-D4E0-494B-ABAE-495600FCD0DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D67B6BE-D4E0-494B-ABAE-495600FCD0DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D67B6BE-D4E0-494B-ABAE-495600FCD0DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D67B6BE-D4E0-494B-ABAE-495600FCD0DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEF9612B-FDE8-450F-B03F-74AC0EF767EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEF9612B-FDE8-450F-B03F-74AC0EF767EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEF9612B-FDE8-450F-B03F-74AC0EF767EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEF9612B-FDE8-450F-B03F-74AC0EF767EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

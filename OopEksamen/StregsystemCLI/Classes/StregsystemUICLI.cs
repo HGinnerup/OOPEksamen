@@ -8,20 +8,20 @@ using System.Text;
 
 namespace StregsystemCLI.Classes
 {
-    class StregsystemUICLI : IStregsystemUI
+    public class StregsystemUICLI : IStregsystemUI
     {
         public event StregsystemEvent CommandEntered;
         public bool Running { get; private set; } = false;
 
-        
 
+        protected virtual string ReadLine() => Console.ReadLine(); // To enable unittest
         public void Start()
         {
             Console.WriteLine("Welcome to stregsystemCLI");
             Running = true;
             while (Running)
             {
-                var rawString = Console.ReadLine();
+                var rawString = ReadLine();
                 var commandSplit = Utilities.StringHandling.SplitString(rawString, ' ').ToArray();
 
                 CommandEntered(rawString, commandSplit.First(), commandSplit.Skip(1).ToArray());
