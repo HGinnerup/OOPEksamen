@@ -1,10 +1,10 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using StregsystemCLI.Classes;
+using OopEksamen.Classes;
 using System;
 using System.IO;
 using System.Text;
 
-namespace StregsystemCLITest
+namespace OopEksamenTest.Classes
 {
     public class CliCommandTest
     {

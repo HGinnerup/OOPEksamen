@@ -1,12 +1,12 @@
 ﻿using OopEksamen.Models;
 using OopEksamen.Models.Transactions;
-using StregsystemCLI.Interfaces;
+using OopEksamen.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace StregsystemCLI.Classes
+namespace OopEksamen.Classes
 {
     public class StregsystemUICLI : IStregsystemUI
     {
