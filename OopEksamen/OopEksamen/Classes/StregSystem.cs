@@ -37,6 +37,10 @@ namespace OopEksamen.Classes
         public BuyTransaction BuyProduct(User user, Product product)
         {
             var transaction = new BuyTransaction(getNewTransactionID(), user, product);
+
+            if(user.Balance + transaction.Amount <= user.BalanceWarningThreshold)
+                UserBalanceWarning(user, user.BalanceWarningThreshold);
+
             ExecuteTransaction(transaction);
             return transaction;
         }

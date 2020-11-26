@@ -35,6 +35,7 @@ namespace OopEksamen.Models
         }
         public Money Balance { get; set; } = 0;
         public Money Credit { get; set; } = 0;
+        public Money BalanceWarningThreshold { get; set; } = 50;
 
         public override string ToString()
         {

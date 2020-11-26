@@ -6,6 +6,10 @@ using UpdateOldData.Classes;
 
 namespace UpdateOldData
 {
+    /// <summary>
+    /// Program meant only to run once while switching from the old system, to the new.
+    /// Intended to convert the old data-formats, to the new.
+    /// </summary>
     class Program
     {
         static void Main(string[] args)
