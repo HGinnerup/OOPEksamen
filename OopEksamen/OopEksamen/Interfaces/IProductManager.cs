@@ -6,7 +6,7 @@ using System.Text;
 
 namespace OopEksamen.Interfaces
 {
-    interface IProductManager : IDisposable
+    public interface IProductManager : IDisposable
     {
         public IEnumerable<Product> Products { get; }
         public Product GetProductByID(uint id);

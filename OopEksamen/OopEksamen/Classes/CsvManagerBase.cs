@@ -7,13 +7,13 @@ using System.Text;
 
 namespace OopEksamen.Classes
 {
-    abstract class CsvManagerBase<T> : IDisposable
+    public abstract class CsvManagerBase<T> : IDisposable
     {
         public CsvManagerBase(string filePath, char delimiter = ',', string newLine = null, Encoding encoding = null, uint headerLineCount = 1)
         {
             FilePath = filePath;
             Directory.CreateDirectory(Path.GetDirectoryName(filePath)); // Ensure existance of directory
-            _fileStream = File.Open(filePath, FileMode.Open);
+            _fileStream = File.Open(filePath, FileMode.OpenOrCreate);
             _delimiter = delimiter;
 
             if (newLine is null) newLine = Environment.NewLine;
@@ -54,12 +54,14 @@ namespace OopEksamen.Classes
 
         protected void AppendData(T data)
         {
+            _fileStream.Seek(0, SeekOrigin.End);
             _fileStream.Write(DataToBytes(data));
             _fileStream.Write(StringToBytes(Environment.NewLine));
         }
 
         protected IEnumerable<T> GetData()
         {
+            _fileStream.Seek(0, SeekOrigin.Begin);
             using var reader = new StreamReader(_fileStream);
 
             // Skip headers

@@ -9,6 +9,10 @@ namespace OopEksamen.Interfaces
 {
     public interface IStregSystem
     {
+        public IProductManager ProductManager { get; set; }
+        public IUserManager UserManager { get; set; }
+        public ITransactionManager TransactionManager { get; set; }
+
         IEnumerable<Product> ActiveProducts { get; }
         InsertCashTransaction AddCreditsToAccount(User user, Money amount);
         BuyTransaction BuyProduct(User user, Product product);
