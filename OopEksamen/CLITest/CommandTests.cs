@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OopEksamen.Classes;
+using OopEksamen.Structs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,5 +49,31 @@ namespace ControllerTest
             sys.StregSystemUI.Start();
             Assert.IsNotNull(sys.StregSystem.TransactionManager.GetTransactions(i => i.User.Username == "adods").FirstOrDefault());
         }
+
+        [TestMethod]
+        public void TestAddCredits()
+        {
+            StregsystemController sys;
+
+            sys = Utilities.GetNewTestSystem(new string[] { });
+            Assert.AreEqual(0, sys.StregSystem.GetUserByUsername("adods").Balance);
+
+            sys = Utilities.GetNewTestSystem(new string[] { ":addcredits adods 100" });
+            sys.StregSystemUI.Start();
+            Assert.AreEqual(100, sys.StregSystem.GetUserByUsername("adods").Balance);
+
+
+            sys = Utilities.GetNewTestSystem(new string[] { ":addcredits adods 4,5", ":addcredits adods 3.2" });
+            sys.StregSystemUI.Start();
+            Assert.AreEqual((Money)(decimal)7.7, sys.StregSystem.GetUserByUsername("adods").Balance);
+
+            sys = Utilities.GetNewTestSystem(new string[] { ":addcredits adods 10", ":addcredits adods -7" });
+            sys.StregSystemUI.Start();
+            Assert.AreEqual(3, sys.StregSystem.GetUserByUsername("adods").Balance);
+
+
+        }
+
+
     }
 }
