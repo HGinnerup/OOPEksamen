@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using OopEksamen.Structs;
 
 namespace OopEksamen.Classes
 {
@@ -102,7 +103,36 @@ namespace OopEksamen.Classes
 
         public void DisplayActiveProducts()
         {
-            foreach (var product in _stregsystem.ActiveProducts) Console.WriteLine(product);
+            DisplayProducts(_stregsystem.ActiveProducts);
         }
+        public void DisplayProducts(IEnumerable<Product> products)
+        {
+            foreach (var product in _stregsystem.ActiveProducts)
+            {
+                if (product.Active)
+                {
+                    Console.WriteLine("{0}\t{1}\t{2}",
+                        product.ID.ToString().PadLeft(5),
+                        product.Price.ToString().PadLeft(10),
+                        product.Name
+                    );
+                }
+                else
+                {
+                    Console.WriteLine($"{0}\t(INACTIVE)\t{1}\t{2}",
+                        product.ID.ToString().PadLeft(5),
+                        product.Price.ToString().PadLeft(10),
+                        product.Name
+                    );
+                }
+            }
+        }
+
+        public void DisplayUserBalanceWarning(User user, Money threshold)
+        {
+            Console.WriteLine($"Balance less than {threshold}: {user}");
+        }
+
+
     }
 }

@@ -26,7 +26,14 @@ namespace OopEksamen.Models.Transactions
 
         public override string ToString()
         {
-            throw new NotImplementedException();
+            if(Amount >= 0)
+            {
+                return $"{User.Username} deposited {Amount}";
+            }
+            else
+            {
+                return $"{User.Username} withdrew {-Amount}"; //- to avoid double negative
+            }
         }
     }
 }

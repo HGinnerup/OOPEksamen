@@ -28,23 +28,7 @@ namespace OopEksamen.Models
 
         public override string ToString()
         {
-            if (Active)
-            {
-                return string.Format("{0}\t{1}\t{2}",
-                    ID.ToString().PadLeft(5),
-                    Price.ToString().PadLeft(10),
-                    Name
-                );
-            }
-            else
-            {
-                return string.Format($"{0}\t(INACTIVE)\t{1}\t{2}",
-                    ID.ToString().PadLeft(5),
-                    Price.ToString().PadLeft(10),
-                    Name
-                );
-            }
-
+            return $"[{ID}] {Name} ({Price})";
         }
     }
 }

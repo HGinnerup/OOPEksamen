@@ -28,7 +28,6 @@ namespace OopEksamen.Classes
             _transactionLogger = new ActionLogger(Path.Combine(logDirectory, "transactions.log"));
         }
 
-
         public IEnumerable<Product> ActiveProducts { get; set; }
 
         public event UserBalanceNotification UserBalanceWarning;

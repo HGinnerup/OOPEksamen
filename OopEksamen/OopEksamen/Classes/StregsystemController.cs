@@ -16,9 +16,10 @@ namespace OopEksamen.Classes
             StregSystem = stregSystem;
             StregSystemUI = stregSystemUI;
             _LoadCommands();
-            StregSystemUI.CommandEntered += CommandEvent;
-        }
 
+            StregSystemUI.CommandEntered += CommandEvent;
+            StregSystem.UserBalanceWarning += StregSystemUI.DisplayUserBalanceWarning;
+        }
         event StregsystemCommand CommandEvent;
 
         void ParseCommand(string rawString, string command, string[] args)

@@ -42,7 +42,7 @@ namespace OopEksamen.Classes.Csv
         {
             if (!_fileStream.CanRead) OpenStream();
             _fileStream.Seek(0, SeekOrigin.Begin);
-            using var reader = new StreamReader(_fileStream);
+            var reader = new StreamReader(_fileStream);
 
             // Skip headers
             for (var i = 0; i < _headerLines.Count(); i++) reader.ReadLine();
@@ -139,8 +139,8 @@ namespace OopEksamen.Classes.Csv
                 AppendData(row, newStream);
             }
 
-            newStream.Close();
-            _fileStream.Close();
+            newStream.Dispose();
+            _fileStream.Dispose();
 
             File.Delete(FilePath);
             File.Move(tmpPath, FilePath);
