@@ -4,5 +4,5 @@ using System.Text;
 
 namespace OopEksamen.Exceptions
 {
-    public class ItemNotFoundException : Exception { }
+    public class TooManyArgumentsException : Exception {}
 }

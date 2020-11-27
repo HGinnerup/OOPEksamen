@@ -1,7 +1,9 @@
-﻿using OopEksamen.Interfaces;
+﻿using OopEksamen.Exceptions;
+using OopEksamen.Interfaces;
 using OopEksamen.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace OopEksamen.Classes.Csv
@@ -31,7 +33,9 @@ namespace OopEksamen.Classes.Csv
 
         public User GetUserByUsername(string username)
         {
-            throw new NotImplementedException();
+            var user = GetData().FirstOrDefault(i => i.Username == username);
+            if (user == null) throw new UserNotFoundException(username);
+            return user;
         }
 
         public IEnumerable<User> GetUsers(Func<User, bool> predicate)

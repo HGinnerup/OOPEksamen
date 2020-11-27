@@ -16,6 +16,7 @@ namespace OopEksamen.Interfaces
         IEnumerable<Product> ActiveProducts { get; }
         InsertCashTransaction AddCreditsToAccount(User user, Money amount);
         BuyTransaction BuyProduct(User user, Product product);
+        MultiBuyTransaction BuyProduct(User user, Product product, uint count);
 
         /// <summary>
         /// 

@@ -4,5 +4,12 @@ using System.Text;
 
 namespace OopEksamen.Exceptions
 {
-    class UserNotFoundException : ItemNotFoundException { }
+    public class UserNotFoundException : ItemNotFoundException {
+        public UserNotFoundException(string username)
+        {
+            Username = username;
+        }
+
+        public string Username { get; set; }
+    }
 }

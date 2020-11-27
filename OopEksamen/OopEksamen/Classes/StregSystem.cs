@@ -11,7 +11,7 @@ using System.Text;
 
 namespace OopEksamen.Classes
 {
-    public class StregSystem : IStregSystem, IDisposable
+    public class StregSystem : IStregSystem
     {
         public IProductManager ProductManager { get; set; }
         public IUserManager UserManager { get; set; }
@@ -39,7 +39,17 @@ namespace OopEksamen.Classes
         {
             var transaction = new BuyTransaction(getNewTransactionID(), user, product);
 
-            if(user.Balance + transaction.Amount <= user.BalanceWarningThreshold)
+            if (user.Balance + transaction.Amount <= user.BalanceWarningThreshold)
+                UserBalanceWarning(user, user.BalanceWarningThreshold);
+
+            ExecuteTransaction(transaction);
+            return transaction;
+        }
+        public MultiBuyTransaction BuyProduct(User user, Product product, uint count)
+        {
+            var transaction = new MultiBuyTransaction(getNewTransactionID(), user, product, count);
+
+            if (user.Balance + transaction.Amount <= user.BalanceWarningThreshold)
                 UserBalanceWarning(user, user.BalanceWarningThreshold);
 
             ExecuteTransaction(transaction);
@@ -66,7 +76,7 @@ namespace OopEksamen.Classes
 
         public IEnumerable<Transaction> GetTransactions(User user, int count)
         {
-            return TransactionManager.GetTransactions(i => i.User.Equals(user)).Take(count);
+            return TransactionManager.GetTransactions(i => i.User.Equals(user)).Reverse().Take(count).ToList();
         }
 
         public User GetUserByUsername(string username)

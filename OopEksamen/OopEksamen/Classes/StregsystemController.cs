@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using OopEksamen.Exceptions;
 using OopEksamen.Interfaces;
+using OopEksamen.Models;
 using OopEksamen.Models.Transactions;
 
 namespace OopEksamen.Classes
@@ -15,44 +17,68 @@ namespace OopEksamen.Classes
             StregSystemUI = stregSystemUI;
             _LoadCommands();
             StregSystemUI.CommandEntered += CommandEvent;
-
-
-            var user = StregSystem.GetUserByUsername("Username");
-            StregSystem.GetTransactions(user, 10); 
-
         }
 
         event StregsystemCommand CommandEvent;
 
         void ParseCommand(string rawString, string command, string[] args)
         {
-            
-            if(command[0] == ':') // Admin-commands
+            try
             {
-                StregsystemCommand func;
-                if (_commands.ContainsKey((command, args.Length))) func = _commands[(command, args.Length)];
-                else if (_commands.ContainsKey((command, null))) func = _commands[(command, null)];
-                else
+                if (command[0] == ':') // Admin-commands
                 {
-                    StregSystemUI.DisplayAdminCommandNotFoundMessage(command);
-                    return;
-                }
+                    StregsystemCommand func;
+                    if (_commands.ContainsKey((command, args.Length))) func = _commands[(command, args.Length)];
+                    else if (_commands.ContainsKey((command, null))) func = _commands[(command, null)];
+                    else throw new AdminCommandNotFoundException();
 
-                try
-                {
                     func(rawString, command, args);
                 }
-                catch(ProductNotFoundException e)
+                else // Default
                 {
-                }
-                catch(Exception e)
-                {
-                    StregSystemUI.DisplayGeneralError(e.Message);
+                    var user = StregSystem.GetUserByUsername(command);
+                    Product product;
+                    BuyTransaction transaction;
+
+                    switch (args.Length)
+                    {
+                        case 0:
+                            StregSystemUI.DisplayUserInfo(user, StregSystem.GetTransactions(user, 10) );
+                            break;
+                        case 1:
+                            product = StregSystem.GetProductByID(uint.Parse(args[0]));
+
+                            transaction = StregSystem.BuyProduct(user, product);
+                            StregSystemUI.DisplayUserBuysProduct(transaction);
+                            break;
+                        case 2:
+                            var count = uint.Parse(args[0]);
+                            product = StregSystem.GetProductByID(uint.Parse(args[1]));
+
+                            transaction = StregSystem.BuyProduct(user, product);
+                            StregSystemUI.DisplayUserBuysProduct(transaction);
+                            break;
+                        default:
+                            throw new TooManyArgumentsException();
+                    }
+
                 }
             }
-            else // Default
+            catch (TooManyArgumentsException e)
             {
-                
+                StregSystemUI.DisplayTooManyArgumentsError(e.Message);
+            }
+            catch (UserNotFoundException e)
+            {
+                StregSystemUI.DisplayUserNotFound(e.Message);
+            }
+            catch (ProductNotFoundException e)
+            {
+                StregSystemUI.DisplayProductNotFound(e.Product);
+            }
+            catch (Exception e)
+            {
+                StregSystemUI.DisplayGeneralError(e.Message);
             }
         }
 

@@ -72,9 +72,18 @@ namespace OopEksamen.Classes
             Console.WriteLine(transaction);
         }
 
-        public void DisplayUserInfo(User user)
+        public void DisplayUserInfo(User user, IEnumerable<Transaction> transactions)
         {
             Console.WriteLine(user);
+            if(user.Balance < user.BalanceWarningThreshold)
+            {
+                Console.WriteLine("Warning: Balance under " + user.BalanceWarningThreshold);
+            }
+            Console.WriteLine("Recent transactions: ");
+            foreach(var transaction in transactions)
+            {
+                Console.WriteLine("\t" + transaction);
+            }
         }
 
         public void DisplayUserNotFound(string username)

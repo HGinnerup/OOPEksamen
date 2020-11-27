@@ -4,5 +4,12 @@ using System.Text;
 
 namespace OopEksamen.Exceptions
 {
-    class ProductNotFoundException : ItemNotFoundException { }
+    public class ProductNotFoundException : ItemNotFoundException {
+        public ProductNotFoundException(string product)
+        {
+            Product = product;
+        }
+
+        public string Product { get; set; }
+    }
 }
