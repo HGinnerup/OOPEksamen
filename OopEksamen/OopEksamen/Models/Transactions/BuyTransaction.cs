@@ -31,11 +31,16 @@ namespace OopEksamen.Models.Transactions
             if (!Product.Active) throw new InvalidOperationException("Cannot buy inactive product");
 
             if(Product.CanBeBoughtOnCredit)
-                if (User.Balance - Amount < User.Credit) throw new InsufficientCreditsException(User, Product);
+            {
+                if (User.Balance + User.Credit < Amount) throw new InsufficientCreditsException(User, Product);
+            }
             else
-                if (User.Balance - Amount < 0) throw new InsufficientCreditsException(User, Product);
+            {
+                if (User.Balance < Amount) throw new InsufficientCreditsException(User, Product);
+            }
+                
 
-            User.Balance += Amount;
+            User.Balance -= Amount;
             Executed = true;
         }
 
