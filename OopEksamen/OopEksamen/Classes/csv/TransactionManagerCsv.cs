@@ -18,7 +18,6 @@ namespace OopEksamen.Classes.Csv
             _stregSystem = stregSystem;
         }
 
-        public IEnumerable<Transaction> Transactions => throw new NotImplementedException();
         public void AddTransaction(Transaction transaction)
         {
             AppendData(transaction);

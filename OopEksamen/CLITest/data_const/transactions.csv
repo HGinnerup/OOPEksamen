@@ -1,8 +1,1 @@
 ID, UserID, Date, Amount
-BuyTransaction,1,adods,01/01/0001 00.00.00,6.5,14
-BuyTransaction,2,adods,01/01/0001 00.00.00,5,1829
-BuyTransaction,3,adods,01/01/0001 00.00.00,12,1837
-BuyTransaction,4,adods,01/01/0001 00.00.00,12,1837
-BuyTransaction,5,adods,01/01/0001 00.00.00,6.5,14
-BuyTransaction,6,adods,01/01/0001 00.00.00,6.5,14
-BuyTransaction,7,adods,01/01/0001 00.00.00,6.5,14
