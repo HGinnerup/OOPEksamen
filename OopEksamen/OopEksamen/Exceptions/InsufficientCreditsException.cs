@@ -1,8 +1,9 @@
-﻿using System;
+﻿using OopEksamen.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace OopEksamen.Models.Transactions
+namespace OopEksamen.Exceptions
 {
     /// <summary>
     /// The exception that is thrown when the balance of a User is too low to execute a transaction

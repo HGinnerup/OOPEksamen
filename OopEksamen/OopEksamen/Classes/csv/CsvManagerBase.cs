@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace OopEksamen.Classes
+namespace OopEksamen.Classes.Csv
 {
     public abstract class CsvManagerBase<T> : IDisposable
     {

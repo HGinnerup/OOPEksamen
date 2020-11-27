@@ -14,6 +14,11 @@ namespace OopEksamen.Interfaces
         uint GetAvailableID();
         void AddUser(User user);
         void UpdateUser(User user);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <exception cref="UserNotFoundException" />
+        /// <param name="username"></param>
         void DeleteUser(string username);
 
     }

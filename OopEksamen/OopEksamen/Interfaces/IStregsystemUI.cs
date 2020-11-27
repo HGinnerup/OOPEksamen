@@ -18,7 +18,6 @@ namespace OopEksamen.Interfaces
         void DisplayInsufficientCash(User user, Product product);
         void DisplayGeneralError(string errorString);
         void Start();
-        event StregsystemEvent CommandEntered;
+        event StregsystemCommand CommandEntered;
     }
-    public delegate void StregsystemEvent(string rawString, string command, string[] args);
 }

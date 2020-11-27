@@ -16,11 +16,26 @@ namespace OopEksamen.Interfaces
         IEnumerable<Product> ActiveProducts { get; }
         InsertCashTransaction AddCreditsToAccount(User user, Money amount);
         BuyTransaction BuyProduct(User user, Product product);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <exception cref="Exceptions.ProductNotFoundException"/>
+        /// <returns></returns>
         Product GetProductByID(uint id);
         IEnumerable<Transaction> GetTransactions(User user, int count);
         IEnumerable<User> GetUsers(Func<User, bool> predicate); // I assume GetUsers (plural) was intended to return a set of users.
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="username"></param
+        /// <exception cref="Exceptions.UserNotFoundException"/>
+        /// <returns></returns>
         User GetUserByUsername(string username);
         event UserBalanceNotification UserBalanceWarning;
+        void Close();
     }
     public delegate void UserBalanceNotification(User user, int threshold);
 }

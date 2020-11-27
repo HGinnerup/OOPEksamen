@@ -1,4 +1,5 @@
-﻿using OopEksamen.Interfaces;
+﻿using OopEksamen.Classes.Csv;
+using OopEksamen.Interfaces;
 using OopEksamen.Models;
 using OopEksamen.Models.Transactions;
 using OopEksamen.Structs;
@@ -84,6 +85,11 @@ namespace OopEksamen.Classes
             UserManager.Dispose();
             TransactionManager.Dispose();
             _transactionLogger.Dispose();
+        }
+
+        public void Close()
+        {
+            Dispose();
         }
     }
 }
