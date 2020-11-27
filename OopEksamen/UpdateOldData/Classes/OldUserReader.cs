@@ -24,7 +24,7 @@ namespace UpdateOldData.Classes
             var firstname = data[1];
             var lastname = data[2];
             var username = data[3];
-            var balance = int.Parse(data[4]);
+            var balance = decimal.Parse(data[4]) / 100;
             var email = data[5];
 
             return new User(id, firstname, lastname, username, email) { Balance = balance };

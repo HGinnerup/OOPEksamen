@@ -29,7 +29,7 @@ namespace UpdateOldData.Classes
             // Columns in original .csv
             var id = uint.Parse(data[0]);
             var name = stripHtml(data[1]);
-            var price = int.Parse(data[2]);
+            var price = decimal.Parse(data[2]) / 100;
             var deactivate_date = data[3] != "0";
 
             return new Product(

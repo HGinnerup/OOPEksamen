@@ -37,5 +37,5 @@ namespace OopEksamen.Interfaces
         User GetUserByUsername(string username);
         event UserBalanceNotification UserBalanceWarning;
     }
-    public delegate void UserBalanceNotification(User user, int threshold);
+    public delegate void UserBalanceNotification(User user, Money threshold);
 }
