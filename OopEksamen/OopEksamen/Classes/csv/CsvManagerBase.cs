@@ -73,7 +73,7 @@ namespace OopEksamen.Classes.Csv
                 Directory.CreateDirectory(Path.GetDirectoryName(filePath));
             }
 
-            var stream = File.Open(FilePath, FileMode.OpenOrCreate);
+            var stream = File.Open(filePath, FileMode.OpenOrCreate);
 
             if (newFile)
             {

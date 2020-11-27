@@ -31,12 +31,9 @@ namespace OopEksamen.Classes
         public IEnumerable<Product> ActiveProducts { get; set; }
 
         public event UserBalanceNotification UserBalanceWarning;
-
-        private uint _nextTransactionId { get; set; } = 0;
-        private uint getNewTransactionID() => _nextTransactionId++;
         public BuyTransaction BuyProduct(User user, Product product)
         {
-            var transaction = new BuyTransaction(getNewTransactionID(), user, product);
+            var transaction = new BuyTransaction(TransactionManager.GetAvailableID(), user, product);
 
             if (user.Balance + transaction.Amount <= user.BalanceWarningThreshold)
                 UserBalanceWarning(user, user.BalanceWarningThreshold);
@@ -46,7 +43,7 @@ namespace OopEksamen.Classes
         }
         public MultiBuyTransaction BuyProduct(User user, Product product, uint count)
         {
-            var transaction = new MultiBuyTransaction(getNewTransactionID(), user, product, count);
+            var transaction = new MultiBuyTransaction(TransactionManager.GetAvailableID(), user, product, count);
 
             if (user.Balance + transaction.Amount <= user.BalanceWarningThreshold)
                 UserBalanceWarning(user, user.BalanceWarningThreshold);
@@ -56,15 +53,17 @@ namespace OopEksamen.Classes
         }
         public InsertCashTransaction AddCreditsToAccount(User user, Money amount)
         {
-            var transaction = new InsertCashTransaction(getNewTransactionID(), user, amount);
+            var transaction = new InsertCashTransaction(TransactionManager.GetAvailableID(), user, amount);
             ExecuteTransaction(transaction);
             return transaction;
         }
 
         private void ExecuteTransaction(Transaction transaction)
         {
-            _transactionLogger.Log(transaction.ToString());
             transaction.Execute();
+            _transactionLogger.Log(transaction.ToString());
+            TransactionManager.AddTransaction(transaction);
+            UserManager.UpdateUser(transaction.User);
         }
 
 

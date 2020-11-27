@@ -28,7 +28,9 @@ namespace OopEksamen.Classes.Csv
 
         public uint GetAvailableID()
         {
-            return GetData().Select(i => i.ID).Max() + 1;
+            var ids = GetData().Select(i => i.ID).ToList();
+            if (ids.Count == 0) return 1;
+            else return ids.Max() + 1;
         }
 
         public User GetUserByUsername(string username)

@@ -21,7 +21,7 @@ namespace OopEksamenTest.Classes
         }
     }
 
-    public class _StregsystemUICLI : StregsystemUICLI
+    internal class _StregsystemUICLI : StregsystemUICLI
     {
         public string ReadLineReturnVal { get; set; }
         protected override string ReadLine()

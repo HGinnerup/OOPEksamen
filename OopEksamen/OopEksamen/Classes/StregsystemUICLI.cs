@@ -85,6 +85,7 @@ namespace OopEksamen.Classes
         public void DisplayUserInfo(User user, IEnumerable<Transaction> transactions)
         {
             Console.WriteLine(user);
+            Console.WriteLine($"Balance: {user.Balance}");
             if(user.Balance < user.BalanceWarningThreshold)
             {
                 Console.WriteLine("Warning: Balance under " + user.BalanceWarningThreshold);
