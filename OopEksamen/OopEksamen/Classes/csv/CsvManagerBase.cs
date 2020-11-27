@@ -7,7 +7,7 @@ using System.Text;
 
 namespace OopEksamen.Classes.Csv
 {
-    public abstract class CsvManagerBase<T> : IDisposable
+    public abstract class CsvManagerBase<T>
     {
 
         private char _delimiter { get; set; }
@@ -22,7 +22,6 @@ namespace OopEksamen.Classes.Csv
 
 
         protected string FilePath { get; private set; }
-        private FileStream _fileStream { get; set; }
         public CsvManagerBase(string filePath, IEnumerable<string> headerLines, char delimiter = ',', string newLine = null, Encoding encoding = null)
         {
             FilePath = filePath;
@@ -34,15 +33,13 @@ namespace OopEksamen.Classes.Csv
 
             if (encoding is null) encoding = Encoding.UTF8;
             _encoding = encoding;
-
-            _fileStream = OpenStream();
         }
 
-        protected IEnumerable<T> GetData()
+        protected IEnumerable<T> GetDataStream()
         {
-            if (!_fileStream.CanRead) OpenStream();
-            _fileStream.Seek(0, SeekOrigin.Begin);
-            var reader = new StreamReader(_fileStream);
+            var fileStream = OpenStream();
+            fileStream.Seek(0, SeekOrigin.Begin);
+            using var reader = new StreamReader(fileStream);
 
             // Skip headers
             for (var i = 0; i < _headerLines.Count(); i++) reader.ReadLine();
@@ -58,8 +55,11 @@ namespace OopEksamen.Classes.Csv
 
                 yield return DataParse(lineSplit);
             }
+            fileStream.Close();
+            fileStream.Dispose();
             yield break;
         }
+        protected IEnumerable<T> GetData() => GetDataStream().ToList();
 
         private FileStream OpenStream()
         {
@@ -102,7 +102,8 @@ namespace OopEksamen.Classes.Csv
         }
         private void AppendString(string str)
         {
-            AppendString(str, _fileStream);
+            using var fileStream = OpenStream();
+            AppendString(str, fileStream);
         }
         private string DataToString(T data)
         {
@@ -139,18 +140,11 @@ namespace OopEksamen.Classes.Csv
                 AppendData(row, newStream);
             }
 
+            newStream.Close();
             newStream.Dispose();
-            _fileStream.Dispose();
 
             File.Delete(FilePath);
             File.Move(tmpPath, FilePath);
-
-            _fileStream = OpenStream();
-        }
-
-        public virtual void Dispose()
-        {
-            _fileStream.Dispose();
         }
     }
 }

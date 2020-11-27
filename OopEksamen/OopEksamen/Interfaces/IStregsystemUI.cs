@@ -8,7 +8,7 @@ using System.Text;
 
 namespace OopEksamen.Interfaces
 {
-    public interface IStregsystemUI : IDisposable
+    public interface IStregsystemUI
     {
         void DisplayActiveProducts();
         void DisplayProducts(IEnumerable<Product> products);
@@ -22,6 +22,7 @@ namespace OopEksamen.Interfaces
         void DisplayInsufficientCash(User user, Product product);
         void DisplayGeneralError(string errorString);
         void Start();
+        void Close();
         event StregsystemCommand CommandEntered;
     }
 }

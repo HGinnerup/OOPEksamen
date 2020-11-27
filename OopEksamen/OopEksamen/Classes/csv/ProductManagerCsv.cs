@@ -71,7 +71,7 @@ namespace OopEksamen.Classes.Csv
         public void UpdateProduct(Product product)
         {
             var data = GetData().ToList();
-            var index = data.FindIndex(i => i.Equals(product));
+            var index = data.FindIndex(i => i.ID == product.ID);
             data[index] = product;
 
             ReWriteFileWithData(data);

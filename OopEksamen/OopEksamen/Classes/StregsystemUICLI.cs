@@ -38,7 +38,7 @@ namespace OopEksamen.Classes
         }
 
 
-        public void Dispose()
+        public void Close()
         {
             Console.WriteLine("Stregsystem closing down");
             Running = false;

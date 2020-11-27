@@ -25,7 +25,7 @@ namespace OopEksamen.Classes
             ActiveProducts = ProductManager.Products.Where(i => i.Active);
             UserManager = new UserManagerCsv(Path.Combine(dataPath, "users.csv"));
             TransactionManager = new TransactionManagerCsv(Path.Combine(dataPath, "transactions.csv"), this);
-            _transactionLogger = new ActionLogger(Path.Combine(logDirectory, "transactions.log"));
+            _transactionLogger = new ActionLogger(Path.Combine(logDirectory, "transactions.txt"));
         }
 
         public IEnumerable<Product> ActiveProducts { get; set; }
@@ -87,17 +87,5 @@ namespace OopEksamen.Classes
             return UserManager.GetUsers(predicate);
         }
 
-        public void Dispose()
-        {
-            ProductManager.Dispose();
-            UserManager.Dispose();
-            TransactionManager.Dispose();
-            _transactionLogger.Dispose();
-        }
-
-        public void Close()
-        {
-            Dispose();
-        }
     }
 }

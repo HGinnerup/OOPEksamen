@@ -6,7 +6,7 @@ using System.Text;
 
 namespace OopEksamen.Interfaces
 {
-    public interface ITransactionManager : IDisposable
+    public interface ITransactionManager
     {
         IEnumerable<Transaction> Transactions { get; }
         IEnumerable<Transaction> GetTransactions(Func<Transaction, bool> predicate);

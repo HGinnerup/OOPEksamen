@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using OopEksamen.Exceptions;
@@ -9,7 +10,7 @@ using OopEksamen.Models.Transactions;
 
 namespace OopEksamen.Classes
 {
-    public class StregsystemController : IDisposable
+    public class StregsystemController
     {
         public StregsystemController(IStregSystem stregSystem, IStregsystemUI stregSystemUI)
         {
@@ -53,10 +54,10 @@ namespace OopEksamen.Classes
                             StregSystemUI.DisplayUserBuysProduct(transaction);
                             break;
                         case 2:
-                            var count = uint.Parse(args[0]);
-                            product = StregSystem.GetProductByID(uint.Parse(args[1]));
+                            product = StregSystem.GetProductByID(uint.Parse(args[0]));
+                            var count = uint.Parse(args[1]);
 
-                            transaction = StregSystem.BuyProduct(user, product);
+                            transaction = StregSystem.BuyProduct(user, product, count);
                             StregSystemUI.DisplayUserBuysProduct(transaction);
                             break;
                         default:
@@ -91,8 +92,7 @@ namespace OopEksamen.Classes
                 new string[] { ":q", ":quit" },
                 (raw, cmd, args) =>
                 {
-                    StregSystemUI.Dispose();
-                    StregSystem.Dispose();
+                    StregSystemUI.Close();
                 }
             );
 
@@ -150,11 +150,12 @@ namespace OopEksamen.Classes
                 (raw, cmd, args) =>
                 {
                     var userId = args[0];
-                    var credits = int.Parse(args[1]);
+                    var credits = decimal.Parse(args[1].Replace(',','.'), CultureInfo.InvariantCulture);
 
                     var user = StregSystem.UserManager.GetUserByUsername(userId);
 
                     StregSystem.AddCreditsToAccount(user, credits);
+                    StregSystemUI.DisplayUserInfo(user, StregSystem.GetTransactions(user, 10));
                 },
                 argCount: 2
             );
@@ -171,12 +172,6 @@ namespace OopEksamen.Classes
         public void AddCommand(string[] cmdAliases, StregsystemCommand func, int? argCount = null)
         {
             foreach (var alias in cmdAliases) AddCommand(alias, func, argCount);
-        }
-
-        public void Dispose()
-        {
-            StregSystem.Dispose();
-            StregSystemUI.Dispose();
         }
 
         IStregSystem StregSystem { get; set; }

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace OopEksamen.Interfaces
 {
-    public interface IStregSystem : IDisposable
+    public interface IStregSystem
     {
         public IProductManager ProductManager { get; set; }
         public IUserManager UserManager { get; set; }

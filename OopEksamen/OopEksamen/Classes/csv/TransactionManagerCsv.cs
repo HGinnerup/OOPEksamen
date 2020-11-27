@@ -51,19 +51,6 @@ namespace OopEksamen.Classes.Csv
                     ((decimal)data.Amount).ToString(CultureInfo.InvariantCulture)
                 };
             }
-            else if (data is BuyTransaction)
-            {
-                
-                return new string[]
-                {
-                    nameof(BuyTransaction),
-                    data.ID.ToString(),
-                    data.User.Username,
-                    data.Date.ToString(),
-                    ((decimal)data.Amount).ToString(CultureInfo.InvariantCulture),
-                    (data as BuyTransaction).Product.ID.ToString()
-                };
-            }
             else if (data is MultiBuyTransaction)
             {
                 return new string[]
@@ -77,6 +64,20 @@ namespace OopEksamen.Classes.Csv
                     (data as MultiBuyTransaction).Count.ToString()
                 };
             }
+            else if (data is BuyTransaction)
+            {
+                
+                return new string[]
+                {
+                    nameof(BuyTransaction),
+                    data.ID.ToString(),
+                    data.User.Username,
+                    data.Date.ToString(),
+                    ((decimal)data.Amount).ToString(CultureInfo.InvariantCulture),
+                    (data as BuyTransaction).Product.ID.ToString()
+                };
+            }
+
             else throw new FormatException($"Unknown transaction-type of \"{data}\"");
         }
 

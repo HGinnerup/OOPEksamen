@@ -6,7 +6,7 @@ using System.Text;
 
 namespace OopEksamen.Interfaces
 {
-    public interface IUserManager : IDisposable
+    public interface IUserManager
     {
         IEnumerable<User> Users { get; }
         User GetUserByUsername(string username);

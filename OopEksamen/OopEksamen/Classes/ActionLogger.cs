@@ -1,50 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace OopEksamen.Classes
 {
-    internal class ActionLogger : IDisposable
+    internal class ActionLogger
     {
         public string LogPath { get; private set; }
-        private FileStream _fileStream { get; set; }
         private Encoding _encoding { get; set; }
 
-
-        public ActionLogger(string logPath)
+        public ActionLogger(string logPath, Encoding encoding = null)
         {
             LogPath = logPath;
-            
             Directory.CreateDirectory(Path.GetDirectoryName(logPath)); // Ensure existance of directory
-            _fileStream = File.OpenWrite(LogPath);
-            _encoding = Encoding.UTF8;
-        }
-        public ActionLogger(string logPath, Encoding encoding)
-        {
-            LogPath = logPath;
-            _fileStream = File.OpenWrite(LogPath);
+
+            if (encoding == null) encoding = Encoding.UTF8;
             _encoding = encoding;
         }
 
-        private string GetTimeStamp() => DateTime.Now.ToString("[YYYY-MM-DD hh:mm:ss] ");
-
-        private void Write(string str)
-        {
-            _fileStream.Write(_encoding.GetBytes(str));
-        }
+        private string GetTimeStamp() => DateTime.Now.ToString("u", DateTimeFormatInfo.InvariantInfo);
 
         public void Log(string str)
         {
-            Write(GetTimeStamp());
-            Write(str);
-            Write(Environment.NewLine);
-        }
+            using var fileStream = File.Open(LogPath, FileMode.Append);
 
-        public void Dispose()
-        {
-            _fileStream.Dispose();
+            fileStream.Write(_encoding.GetBytes($"[{GetTimeStamp()}] {str}{Environment.NewLine}"));
         }
     }
 }
