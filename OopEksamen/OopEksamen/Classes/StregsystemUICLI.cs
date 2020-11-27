@@ -10,9 +10,8 @@ namespace OopEksamen.Classes
 {
     public class StregsystemUICLI : IStregsystemUI
     {
-        public event StregsystemEvent CommandEntered;
+        public event StregsystemCommand CommandEntered;
         public bool Running { get; private set; } = false;
-
 
         protected virtual string ReadLine() => Console.ReadLine(); // To enable unittest
         public void Start()
@@ -27,7 +26,9 @@ namespace OopEksamen.Classes
                 CommandEntered(rawString, commandSplit.First(), commandSplit.Skip(1).ToArray());
             }
         }
-        public void Close()
+
+
+        public void Dispose()
         {
             Console.WriteLine("Stregsystem closing down");
             Running = false;

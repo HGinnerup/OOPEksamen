@@ -1,4 +1,5 @@
-﻿using OopEksamen.Structs;
+﻿using OopEksamen.Exceptions;
+using OopEksamen.Structs;
 using System;
 using System.Collections.Generic;
 using System.Text;

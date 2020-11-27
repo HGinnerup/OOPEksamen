@@ -7,7 +7,7 @@ using System.Text;
 
 namespace OopEksamen.Interfaces
 {
-    public interface IStregSystem
+    public interface IStregSystem : IDisposable
     {
         public IProductManager ProductManager { get; set; }
         public IUserManager UserManager { get; set; }
@@ -35,7 +35,6 @@ namespace OopEksamen.Interfaces
         /// <returns></returns>
         User GetUserByUsername(string username);
         event UserBalanceNotification UserBalanceWarning;
-        void Close();
     }
     public delegate void UserBalanceNotification(User user, int threshold);
 }

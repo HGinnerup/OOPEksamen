@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using OopEksamen.Classes;
+using OopEksamen.Classes.Csv;
 using OopEksamen.Models;
 
 namespace UpdateOldData.Classes

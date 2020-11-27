@@ -14,7 +14,7 @@ namespace OopEksamen.Models.Transactions
         /// <summary>
         /// 
         /// </summary>
-        /// <exception cref="InsufficientCreditsException" />
+        /// <exception cref="Exceptions.InsufficientCreditsException" />
         /// <exception cref="InvalidOperationException" />
         public override void Execute()
         {

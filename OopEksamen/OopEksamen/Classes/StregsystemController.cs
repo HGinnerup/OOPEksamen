@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using OopEksamen.Exceptions;
 using OopEksamen.Interfaces;
 using OopEksamen.Models.Transactions;
 
@@ -13,7 +14,12 @@ namespace OopEksamen.Classes
             StregSystem = stregSystem;
             StregSystemUI = stregSystemUI;
             _LoadCommands();
-            StregSystem.GetProductByID()
+            StregSystemUI.CommandEntered += CommandEvent;
+
+
+            var user = StregSystem.GetUserByUsername("Username");
+            StregSystem.GetTransactions(user, 10); 
+
         }
 
         event StregsystemCommand CommandEvent;
@@ -36,7 +42,9 @@ namespace OopEksamen.Classes
                 {
                     func(rawString, command, args);
                 }
-                catch(NotFo)
+                catch(ProductNotFoundException e)
+                {
+                }
                 catch(Exception e)
                 {
                     StregSystemUI.DisplayGeneralError(e.Message);
@@ -56,8 +64,8 @@ namespace OopEksamen.Classes
                 new string[] { ":q", ":quit" },
                 (raw, cmd, args) =>
                 {
-                    StregSystemUI.Close();
-                    StregSystem.Close();
+                    StregSystemUI.Dispose();
+                    StregSystem.Dispose();
                 }
             );
 
@@ -140,7 +148,8 @@ namespace OopEksamen.Classes
 
         public void Dispose()
         {
-            StregSystemUI.Close();
+            StregSystem.Dispose();
+            StregSystemUI.Dispose();
         }
 
         IStregSystem StregSystem { get; set; }

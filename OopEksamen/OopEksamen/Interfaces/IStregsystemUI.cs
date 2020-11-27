@@ -6,7 +6,7 @@ using System.Text;
 
 namespace OopEksamen.Interfaces
 {
-    public interface IStregsystemUI
+    public interface IStregsystemUI : IDisposable
     {
         void DisplayUserNotFound(string username);
         void DisplayProductNotFound(string product);
@@ -14,7 +14,6 @@ namespace OopEksamen.Interfaces
         void DisplayTooManyArgumentsError(string command);
         void DisplayAdminCommandNotFoundMessage(string adminCommand);
         void DisplayUserBuysProduct(BuyTransaction transaction);  // Variation with count removed as parameter, as it should be part of the transaction-model
-        void Close();
         void DisplayInsufficientCash(User user, Product product);
         void DisplayGeneralError(string errorString);
         void Start();

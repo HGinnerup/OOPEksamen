@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OopEksamen.Classes;
+using OopEksamen.Interfaces;
 using System;
 using System.IO;
 using System.Text;
@@ -25,7 +26,7 @@ namespace OopEksamenTest.Classes
         public string ReadLineReturnVal { get; set; }
         protected override string ReadLine()
         {
-            Close();
+            Dispose();
             return ReadLineReturnVal;
         }
     }
