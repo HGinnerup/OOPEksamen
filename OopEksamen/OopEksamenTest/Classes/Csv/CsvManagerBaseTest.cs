@@ -22,16 +22,12 @@ namespace OopEksamenTest.Classes.Csv
 
             var writtenUser = new User(1, "Anders", "Hansen", "andershansen", "anders@hansen.dk");
 
-            using (var userWriter = new UserManagerCsv(testPath))
-            {
-                userWriter.AddUser(writtenUser);
-            }
+            var userWriter = new UserManagerCsv(testPath);
+            userWriter.AddUser(writtenUser);
 
             User readUser;
-            using (var userReader = new UserManagerCsv(testPath))
-            {
-                readUser = userReader.GetUserByUsername(writtenUser.Username);
-            }
+            var userReader = new UserManagerCsv(testPath);
+            readUser = userReader.GetUserByUsername(writtenUser.Username);
 
             Assert.AreEqual(writtenUser, readUser);
         }

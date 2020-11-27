@@ -5,7 +5,7 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace OopEksamenTest.Classes
+namespace CLITest
 {
     public class CliCommandTest
     {
@@ -21,19 +21,6 @@ namespace OopEksamenTest.Classes
         }
     }
 
-
-    internal class _stregsystemUICLI : StregsystemUICLI
-    {
-        public _stregsystemUICLI() { }
-
-        public string ReadLineReturnVal { get; set; }
-        protected override string ReadLine()
-        {
-            Close();
-            return ReadLineReturnVal;
-        }
-    }
-
     [TestClass]
     public class StregsystemCLIUITest
     {
@@ -46,12 +33,12 @@ namespace OopEksamenTest.Classes
         [DataRow(":CommandTest Arg1 \"Arg2 A\\\" rg2\"", ":CommandTest", new string[] { "Arg1", "Arg2 A\" rg2" })]
         public void TestCLICommand(string raw, string cmd, string[] args)
         {
-            var stregsystemUICLI = new _StregsystemUICLI();
-            var cliCommandTest = new CliCommandTest();
+            var controller = Utilities.GetNewTestSystem(new string[] { raw });
 
-            stregsystemUICLI.CommandEntered += cliCommandTest.TestCommand;
-            stregsystemUICLI.ReadLineReturnVal = raw;
-            stregsystemUICLI.Start();
+            var cliCommandTest = new CliCommandTest();
+            controller.StregSystemUI.CommandEntered += cliCommandTest.TestCommand;
+
+            controller.StregSystemUI.Start();
 
             Assert.AreEqual(raw, cliCommandTest.RawString);
             Assert.AreEqual(cmd, cliCommandTest.Command);

@@ -12,6 +12,8 @@ namespace OopEksamen.Classes
 {
     public class StregsystemController
     {
+        public IStregSystem StregSystem { get; set; }
+        public IStregsystemUI StregSystemUI { get; set; }
         public StregsystemController(IStregSystem stregSystem, IStregsystemUI stregSystemUI)
         {
             StregSystem = stregSystem;
@@ -173,10 +175,5 @@ namespace OopEksamen.Classes
         {
             foreach (var alias in cmdAliases) AddCommand(alias, func, argCount);
         }
-
-        IStregSystem StregSystem { get; set; }
-        IStregsystemUI StregSystemUI { get; set; }
-
-
     }
 }
