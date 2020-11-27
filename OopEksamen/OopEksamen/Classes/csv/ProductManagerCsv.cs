@@ -15,8 +15,6 @@ namespace OopEksamen.Classes.Csv
         {
         }
 
-        public string CsvPath { get; private set; }
-
         protected override string[] DataEncode(Product data)
         {
             return new string[] {

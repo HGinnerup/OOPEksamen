@@ -53,7 +53,7 @@ namespace ControllerTest
 
             // Instantiate and return new controller
 
-            IStregSystem stregSystem = new StregSystem(tmpDataPath, logPath);
+            IStregSystem stregSystem = new StregSystem(logPath, tmpDataPath);
             IStregsystemUI stregSystemUI = new StregsystemUITest(stregSystem, cLICommands);
 
             return new StregsystemController(stregSystem, stregSystemUI);

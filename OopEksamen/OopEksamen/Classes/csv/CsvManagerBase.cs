@@ -9,12 +9,10 @@ namespace OopEksamen.Classes.Csv
 {
     public abstract class CsvManagerBase<T>
     {
-
         private char _delimiter { get; set; }
         private string _newLine { get; set; }
         private Encoding _encoding { get; set; }
         private IEnumerable<string> _headerLines { get; set; }
-
 
 
         protected abstract T DataParse(string[] data);
