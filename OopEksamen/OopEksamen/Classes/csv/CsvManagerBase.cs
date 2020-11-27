@@ -9,11 +9,10 @@ namespace OopEksamen.Classes.Csv
 {
     public abstract class CsvManagerBase<T> : IDisposable
     {
-        public CsvManagerBase(string filePath, char delimiter = ',', string newLine = null, Encoding encoding = null, uint headerLineCount = 1)
+        public CsvManagerBase(string filePath, IEnumerable<string> headerLines, char delimiter = ',', string newLine = null, Encoding encoding = null)
         {
             FilePath = filePath;
-            Directory.CreateDirectory(Path.GetDirectoryName(filePath)); // Ensure existance of directory
-            _fileStream = File.Open(filePath, FileMode.OpenOrCreate);
+            _headerLines = headerLines;
             _delimiter = delimiter;
 
             if (newLine is null) newLine = Environment.NewLine;
@@ -22,13 +21,41 @@ namespace OopEksamen.Classes.Csv
             if (encoding is null) encoding = Encoding.UTF8;
             _encoding = encoding;
 
-            _headerLineCount = headerLineCount;
+            _fileStream = OpenStream();
         }
+
+        private FileStream OpenStream(string filePath)
+        {
+            bool newFile = !File.Exists(filePath);
+            if (newFile)
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+            }
+
+            var stream = File.Open(FilePath, FileMode.OpenOrCreate);
+
+            if(newFile)
+            {
+                foreach(var header in _headerLines)
+                {
+                    AppendString(header, stream);
+                }
+            }
+
+            return stream;
+        }
+
+        private FileStream OpenStream()
+        {
+            return OpenStream(FilePath);
+        }
+
 
         private char _delimiter { get; set; }
         private string _newLine { get; set; }
         private Encoding _encoding { get; set; }
         private uint _headerLineCount { get; set; }
+        private IEnumerable<string> _headerLines { get; set; }
 
         protected abstract T DataParse(string[] data);
         protected abstract string[] DataEncode(T data);
@@ -64,13 +91,26 @@ namespace OopEksamen.Classes.Csv
 
         protected void AppendData(T data)
         {
-            _fileStream.Seek(0, SeekOrigin.End);
-            _fileStream.Write(DataToBytes(data));
-            _fileStream.Write(StringToBytes(_newLine));
+            AppendString(DataToString(data));
+        }
+        private void AppendData(T data, FileStream fileStream)
+        {
+            AppendString(DataToString(data), fileStream);
+        }
+        private void AppendString(string str, FileStream fileStream)
+        {
+            fileStream.Seek(0, SeekOrigin.End);
+            fileStream.Write(StringToBytes(str));
+            fileStream.Write(StringToBytes(_newLine));
+        }
+        private void AppendString(string str)
+        {
+            AppendString(str, _fileStream);
         }
 
         protected IEnumerable<T> GetData()
         {
+            if (!_fileStream.CanRead) OpenStream();
             _fileStream.Seek(0, SeekOrigin.Begin);
             using var reader = new StreamReader(_fileStream);
 
@@ -89,6 +129,25 @@ namespace OopEksamen.Classes.Csv
                 yield return DataParse(lineSplit);
             }
             yield break;
+        }
+
+        protected void ReWriteFileWithData(IEnumerable<T> data)
+        {
+            var tmpPath = FilePath + ".tmp";
+
+            var newStream = OpenStream(tmpPath);
+            foreach(var row in data)
+            {
+                AppendData(row, newStream);
+            }
+
+            newStream.Close();
+            _fileStream.Close();
+
+            File.Delete(FilePath);
+            File.Move(tmpPath, FilePath);
+
+            _fileStream = OpenStream();
         }
 
         public virtual void Dispose()

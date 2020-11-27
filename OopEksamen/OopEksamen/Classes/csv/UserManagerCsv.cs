@@ -8,13 +8,11 @@ using System.Text;
 
 namespace OopEksamen.Classes.Csv
 {
-    class UserManagerCsv : CsvManagerBase<User>, IUserManager
+    public class UserManagerCsv : CsvManagerBase<User>, IUserManager
     {
-        public UserManagerCsv(string filePath, char delimiter = ',', string newLine = null, Encoding encoding = null, uint headerLineCount = 1) : base(filePath, delimiter, newLine, encoding, headerLineCount)
-        {
-        }
+        public UserManagerCsv(string filePath, char delimiter = ',', string newLine = null, Encoding encoding = null) : base(filePath,new string[] { "ID,Firstname,Lastname,username,Email,Balance,Credit" }, delimiter, newLine, encoding) {}
 
-        public IEnumerable<User> Users => throw new NotImplementedException();
+        public IEnumerable<User> Users => GetData();
 
         public void AddUser(User user)
         {
@@ -23,12 +21,13 @@ namespace OopEksamen.Classes.Csv
 
         public void DeleteUser(string username)
         {
-            throw new NotImplementedException();
+            var user = GetUserByUsername(username);
+            ReWriteFileWithData(GetData().Where(i => !i.Equals(user)));
         }
 
         public uint GetAvailableID()
         {
-            throw new NotImplementedException();
+            return GetData().Select(i => i.ID).Max() + 1;
         }
 
         public User GetUserByUsername(string username)
@@ -38,14 +37,23 @@ namespace OopEksamen.Classes.Csv
             return user;
         }
 
+        public IEnumerable<User> GetUsers()
+        {
+            return GetData();
+        }
+
         public IEnumerable<User> GetUsers(Func<User, bool> predicate)
         {
-            throw new NotImplementedException();
+            return GetUsers().Where(predicate);
         }
 
         public void UpdateUser(User user)
         {
-            throw new NotImplementedException();
+            var data = GetData().ToList();
+            var index = data.FindIndex(i => i.Equals(user));
+            data[index] = user;
+
+            ReWriteFileWithData(data);
         }
 
         protected override string[] DataEncode(User data)
