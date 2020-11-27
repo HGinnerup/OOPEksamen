@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace CLITest
+namespace ControllerTest
 {
     public static class Utilities
     {

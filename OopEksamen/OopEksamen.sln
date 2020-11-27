@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utilities", "Shared\Utiliti
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilitiesTest", "UtilitiesTest\UtilitiesTest.csproj", "{DCCB67E7-3733-40ED-A488-8905921EB132}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CLITest", "CLITest\CLITest.csproj", "{364D1C0A-388D-42F1-937D-5491F4E11969}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControllerTest", "CLITest\ControllerTest.csproj", "{364D1C0A-388D-42F1-937D-5491F4E11969}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

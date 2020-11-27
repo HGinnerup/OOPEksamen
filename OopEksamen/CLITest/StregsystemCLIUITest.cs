@@ -5,7 +5,7 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace CLITest
+namespace ControllerTest
 {
     public class CliCommandTest
     {
