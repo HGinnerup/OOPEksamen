@@ -13,7 +13,6 @@ namespace OopEksamen.Classes.Csv
         private char _delimiter { get; set; }
         private string _newLine { get; set; }
         private Encoding _encoding { get; set; }
-        private uint _headerLineCount { get; set; }
         private IEnumerable<string> _headerLines { get; set; }
 
         public CsvManagerBase(string filePath, IEnumerable<string> headerLines, char delimiter = ',', string newLine = null, Encoding encoding = null)
@@ -56,8 +55,6 @@ namespace OopEksamen.Classes.Csv
         {
             return OpenStream(FilePath);
         }
-
-
 
         protected abstract T DataParse(string[] data);
         protected abstract string[] DataEncode(T data);
@@ -117,7 +114,7 @@ namespace OopEksamen.Classes.Csv
             using var reader = new StreamReader(_fileStream);
 
             // Skip headers
-            for (var i = 0; i < _headerLineCount; i++) reader.ReadLine();
+            for (var i = 0; i < _headerLines.Count(); i++) reader.ReadLine();
 
             // Yield content
             while (true)

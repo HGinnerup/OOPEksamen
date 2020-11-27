@@ -20,23 +20,20 @@ namespace OopEksamenTest.Classes.Csv
             var testPath = Path.Join(tmpTestDirectory, "userTest.csv");
 
 
+            var writtenUser = new User(1, "Anders", "Hansen", "andershansen", "anders@hansen.dk");
 
             using (var userWriter = new UserManagerCsv(testPath))
             {
-                userWriter.AddUser(new User(1, "Anders", "Hansen", "andershansen", "anders@hansen.dk"));
+                userWriter.AddUser(writtenUser);
             }
 
+            User readUser;
             using (var userReader = new UserManagerCsv(testPath))
             {
-                userReader.GetUsers();
-                userWriter.AddUser(new User(1, "Anders", "Hansen", "andershansen", "anders@hansen.dk"));
+                readUser = userReader.GetUserByUsername(writtenUser.Username);
             }
 
-
-            userR
-
-            var userReader = new UserManagerCsv(Path.Join(tmpTestDirectory, "userTest.csv"));
-
+            Assert.AreEqual(writtenUser, readUser);
         }
     }
 }

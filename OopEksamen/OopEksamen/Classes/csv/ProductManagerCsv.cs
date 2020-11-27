@@ -1,14 +1,16 @@
-﻿using OopEksamen.Interfaces;
+﻿using OopEksamen.Exceptions;
+using OopEksamen.Interfaces;
 using OopEksamen.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace OopEksamen.Classes.Csv
 {
     class ProductManagerCsv : CsvManagerBase<Product>, IProductManager
     {
-        public ProductManagerCsv(string filePath, char delimiter = ',', string newLine = null, Encoding encoding = null, uint headerLineCount = 1) : base(filePath, delimiter, newLine, encoding, headerLineCount)
+        public ProductManagerCsv(string filePath, char delimiter = ',', string newLine = null, Encoding encoding = null) : base(filePath, new string[] { "ID,Name,Active,Price,CanBeBoughtOnCredit,SeasonStartDate,SeasonEndDate" }, delimiter, newLine, encoding)
         {
         }
 
@@ -46,24 +48,30 @@ namespace OopEksamen.Classes.Csv
             base.AppendData(product);
         }
 
-        public void DeleteProduct(string productID)
+        public void DeleteProduct(Product product)
         {
-            throw new NotImplementedException();
+            ReWriteFileWithData(GetData().Where(i => !i.Equals(product)));
         }
 
         public uint GetAvailableID()
         {
-            throw new NotImplementedException();
+            return GetData().Select(i => i.ID).Max() + 1;
         }
 
         public Product GetProductByID(uint id)
         {
-            throw new NotImplementedException();
+            var product = GetData().FirstOrDefault(i => i.ID == id);
+            if (product == null) throw new ProductNotFoundException(id);
+            return product;
         }
 
         public void UpdateProduct(Product product)
         {
-            throw new NotImplementedException();
+            var data = GetData().ToList();
+            var index = data.FindIndex(i => i.Equals(product));
+            data[index] = product;
+
+            ReWriteFileWithData(data);
         }
     }
 }

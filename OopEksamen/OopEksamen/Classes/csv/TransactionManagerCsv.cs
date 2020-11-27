@@ -1,4 +1,5 @@
 ﻿using OopEksamen.Interfaces;
+using OopEksamen.Models;
 using OopEksamen.Models.Transactions;
 using System;
 using System.Collections.Generic;
@@ -48,26 +49,62 @@ namespace OopEksamen.Classes.Csv
                     ((int)data.Amount).ToString()
                 };
             }
-
-            return new string[]
+            else if (data is BuyTransaction)
             {
-                data.ID.ToString(),
-                data.User.Username,
-                data.Date.ToString(),
-                ((int)data.Amount).ToString()
-            };
+                
+                return new string[]
+                {
+                    nameof(BuyTransaction),
+                    data.ID.ToString(),
+                    data.User.Username,
+                    data.Date.ToString(),
+                    ((int)data.Amount).ToString(),
+                    (data as BuyTransaction).Product.ID.ToString()
+                };
+            }
+            else if (data is MultiBuyTransaction)
+            {
+                return new string[]
+                {
+                    nameof(MultiBuyTransaction),
+                    data.ID.ToString(),
+                    data.User.Username,
+                    data.Date.ToString(),
+                    ((int)data.Amount).ToString(),
+                    (data as MultiBuyTransaction).Product.ID.ToString(),
+                    (data as MultiBuyTransaction).Count.ToString()
+                };
+            }
+            else throw new FormatException($"Unknown transaction-type of \"{data}\"");
         }
 
         protected override Transaction DataParse(string[] data)
         {
-            var iD = uint.Parse(data[0]);
-            var username = data[1];
-            var date = DateTime.Parse(data[2]);
-            var amount = int.Parse(data[3]);
+            var type = data[0];
+            var iD = uint.Parse(data[1]);
+            var username = data[2];
+            var date = DateTime.Parse(data[3]);
+            var amount = int.Parse(data[4]);
 
             var user = _stregSystem.GetUserByUsername(username);
 
-            return new Transaction(iD, user, amount, date);
+            Product product;
+            uint count;
+
+            switch(type)
+            {
+                case nameof(InsertCashTransaction):
+                    return new InsertCashTransaction(iD, user, amount) { Executed = true };
+                case nameof(BuyTransaction):
+                    product = _stregSystem.GetProductByID(uint.Parse(data[5]));
+                    return new BuyTransaction(iD, user, amount, product) { Executed = true };
+                case nameof(MultiBuyTransaction):
+                    product = _stregSystem.GetProductByID(uint.Parse(data[5]));
+                    count = uint.Parse(data[6]);
+                    return new MultiBuyTransaction(iD, user, product, count);
+                default:
+                    throw new FormatException($"Unknown transaction-type {type}");
+            }
         }
     }
 }

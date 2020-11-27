@@ -9,7 +9,7 @@ namespace UpdateOldData.Classes
 {
     class OldUserReader : CsvManagerBase<User>
     {
-        public OldUserReader(string filePath, char delimiter = ',', string newLine = null, Encoding encoding = null, uint headerLineCount = 1) : base(filePath, delimiter, newLine, encoding, headerLineCount)
+        public OldUserReader(string filePath, char delimiter = ',', string newLine = null, Encoding encoding = null) : base(filePath, new string[] { "" }, delimiter, newLine, encoding)
         {
         }
 

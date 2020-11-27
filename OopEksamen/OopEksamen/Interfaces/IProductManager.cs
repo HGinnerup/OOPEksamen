@@ -19,11 +19,6 @@ namespace OopEksamen.Interfaces
         public uint GetAvailableID();
         public void AddProduct(Product product);
         public void UpdateProduct(Product product);
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <exception cref="Exceptions.ProductNotFoundException"/>
-        /// <param name="productID"></param>
-        public void DeleteProduct(string productID);
+        public void DeleteProduct(Product product);
     }
 }

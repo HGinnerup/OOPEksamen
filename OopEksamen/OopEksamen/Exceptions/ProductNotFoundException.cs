@@ -5,11 +5,11 @@ using System.Text;
 namespace OopEksamen.Exceptions
 {
     public class ProductNotFoundException : ItemNotFoundException {
-        public ProductNotFoundException(string product)
+        public ProductNotFoundException(uint productID)
         {
-            Product = product;
+            ProductID = productID;
         }
 
-        public string Product { get; set; }
+        public uint ProductID { get; set; }
     }
 }

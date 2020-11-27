@@ -1,3 +1,4 @@
+ID,Name,Active,Price,CanBeBoughtOnCredit,SeasonStartDate,SeasonEndDate
 1;Diverse;True;100;True;;
 2;½L Letmælk;True;450;True;;
 3;¼L Letmælk;True;250;True;;

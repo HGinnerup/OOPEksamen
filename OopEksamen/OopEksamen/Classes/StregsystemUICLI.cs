@@ -57,9 +57,9 @@ namespace OopEksamen.Classes
 
         }
 
-        public void DisplayProductNotFound(string product)
+        public void DisplayProductNotFound(uint productID)
         {
-            Console.WriteLine($"Cannot find product \"{product}\"");
+            Console.WriteLine($"Cannot find product \"{productID}\"");
         }
 
         public void DisplayTooManyArgumentsError(string command)

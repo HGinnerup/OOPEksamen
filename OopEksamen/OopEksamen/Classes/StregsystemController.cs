@@ -43,7 +43,7 @@ namespace OopEksamen.Classes
                     switch (args.Length)
                     {
                         case 0:
-                            StregSystemUI.DisplayUserInfo(user, StregSystem.GetTransactions(user, 10) );
+                            StregSystemUI.DisplayUserInfo(user, StregSystem.GetTransactions(user, 10));
                             break;
                         case 1:
                             product = StregSystem.GetProductByID(uint.Parse(args[0]));
@@ -74,7 +74,7 @@ namespace OopEksamen.Classes
             }
             catch (ProductNotFoundException e)
             {
-                StregSystemUI.DisplayProductNotFound(e.Product);
+                StregSystemUI.DisplayProductNotFound(e.ProductID);
             }
             catch (Exception e)
             {

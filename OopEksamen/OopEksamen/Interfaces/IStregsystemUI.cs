@@ -10,7 +10,7 @@ namespace OopEksamen.Interfaces
     public interface IStregsystemUI : IDisposable
     {
         void DisplayUserNotFound(string username);
-        void DisplayProductNotFound(string product);
+        void DisplayProductNotFound(uint productID);
         void DisplayUserInfo(User user, IEnumerable<Transaction> transactions);
         void DisplayTooManyArgumentsError(string command);
         void DisplayAdminCommandNotFoundMessage(string adminCommand);
