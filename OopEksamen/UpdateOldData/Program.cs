@@ -16,10 +16,10 @@ namespace UpdateOldData
         {
             
             var visualStudioSolutionPath = @"..\..\..\..";
-            using var stregSystem = new StregSystem(dataPath: Path.Join(visualStudioSolutionPath, @"data"));
+            var stregSystem = new StregSystem(dataPath: Path.Join(visualStudioSolutionPath, @"data"));
 
             // Products
-            using var productReader = new OldProductReader(Path.Join(visualStudioSolutionPath, @"originalData\products.csv"), delimiter: ';');
+            var productReader = new OldProductReader(Path.Join(visualStudioSolutionPath, @"originalData\products.csv"), delimiter: ';');
             foreach (var product in productReader.GetProducts())
             {
                 stregSystem.ProductManager.AddProduct(product);
@@ -27,7 +27,7 @@ namespace UpdateOldData
             Console.WriteLine($"Finished appending old product-data");
 
             // Users
-            using var userReader = new OldUserReader(Path.Join(visualStudioSolutionPath, @"originalData\users.csv"), delimiter: ',');
+            var userReader = new OldUserReader(Path.Join(visualStudioSolutionPath, @"originalData\users.csv"), delimiter: ',');
             foreach (var user in userReader.GetUsers())
             {
                 stregSystem.UserManager.AddUser(user);
