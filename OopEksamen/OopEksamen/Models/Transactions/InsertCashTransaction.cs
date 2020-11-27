@@ -20,6 +20,7 @@ namespace OopEksamen.Models.Transactions
         {
             if (Executed) throw new InvalidOperationException("Transaction has already been executed");
             if (Amount < 0 && User.Balance - Amount < 0) throw new InvalidOperationException("Unsufficient Balance");
+            Date = DateTime.Now;
             Executed = true;
             User.Balance += Amount;
         }

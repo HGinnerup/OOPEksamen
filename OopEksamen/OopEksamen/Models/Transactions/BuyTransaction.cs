@@ -38,7 +38,7 @@ namespace OopEksamen.Models.Transactions
             {
                 if (User.Balance < Amount) throw new InsufficientCreditsException(User, Product);
             }
-                
+            Date = DateTime.Now;
 
             User.Balance -= Amount;
             Executed = true;
