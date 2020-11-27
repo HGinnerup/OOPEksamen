@@ -3,6 +3,7 @@ using OopEksamen.Interfaces;
 using OopEksamen.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -22,7 +23,7 @@ namespace OopEksamen.Classes.Csv
                 data.ID.ToString(),
                 data.Name,
                 data.Active.ToString(),
-                ((int)data.Price).ToString(),
+                ((decimal)data.Price).ToString(CultureInfo.InvariantCulture),
                 data.CanBeBoughtOnCredit.ToString(),
                 data.SeasonStartDate.ToString(),
                 data.SeasonEndDate.ToString()
@@ -34,7 +35,7 @@ namespace OopEksamen.Classes.Csv
                 iD: uint.Parse(data[0]),
                 name: data[1],
                 active: bool.Parse(data[2]),
-                price: int.Parse(data[3]),
+                price: decimal.Parse(data[3], CultureInfo.InvariantCulture),
                 canBeBoughtOnCredit: bool.Parse(data[4]),
                 seasonStartDate: (data[5] != string.Empty) ? (DateTime?)DateTime.Parse(data[5]) : null,
                 seasonEndDate: (data[6] != string.Empty) ? (DateTime?)DateTime.Parse(data[6]) : null

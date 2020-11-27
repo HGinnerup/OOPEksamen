@@ -3,6 +3,7 @@ using OopEksamen.Interfaces;
 using OopEksamen.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -65,8 +66,8 @@ namespace OopEksamen.Classes.Csv
                 data.Lastname,
                 data.Username,
                 data.Email,
-                ((int)data.Balance).ToString(),
-                ((int)data.Credit).ToString()
+                ((decimal)data.Balance).ToString(CultureInfo.InvariantCulture),
+                ((decimal)data.Credit).ToString(CultureInfo.InvariantCulture)
             };
         }
 
@@ -80,8 +81,8 @@ namespace OopEksamen.Classes.Csv
                 email: data[4]
                 )
             {
-                Balance = int.Parse(data[5]),
-                Credit = int.Parse(data[6])
+                Balance = decimal.Parse(data[5], CultureInfo.InvariantCulture),
+                Credit = decimal.Parse(data[6], CultureInfo.InvariantCulture)
             };
         }
     }

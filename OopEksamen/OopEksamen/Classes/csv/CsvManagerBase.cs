@@ -15,6 +15,14 @@ namespace OopEksamen.Classes.Csv
         private Encoding _encoding { get; set; }
         private IEnumerable<string> _headerLines { get; set; }
 
+
+
+        protected abstract T DataParse(string[] data);
+        protected abstract string[] DataEncode(T data);
+
+
+        protected string FilePath { get; private set; }
+        private FileStream _fileStream { get; set; }
         public CsvManagerBase(string filePath, IEnumerable<string> headerLines, char delimiter = ',', string newLine = null, Encoding encoding = null)
         {
             FilePath = filePath;
@@ -28,83 +36,6 @@ namespace OopEksamen.Classes.Csv
             _encoding = encoding;
 
             _fileStream = OpenStream();
-        }
-
-        private FileStream OpenStream(string filePath)
-        {
-            bool newFile = !File.Exists(filePath);
-            if (newFile)
-            {
-                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
-            }
-
-            var stream = File.Open(FilePath, FileMode.OpenOrCreate);
-
-            if(newFile)
-            {
-                foreach(var header in _headerLines)
-                {
-                    AppendString(header, stream);
-                }
-            }
-
-            return stream;
-        }
-
-        private FileStream OpenStream()
-        {
-            return OpenStream(FilePath);
-        }
-
-        protected abstract T DataParse(string[] data);
-        protected abstract string[] DataEncode(T data);
-
-
-        protected string FilePath { get; private set; }
-        private FileStream _fileStream { get; set; }
-
-
-        private string DataToString(T data)
-        {
-            var strings = DataEncode(data).ToArray();
-            for(var i=0; i<strings.Length; i++)
-            {
-                // Escape quotes
-                strings[i] = strings[i].Replace("\"", "\\\"");
-
-                // If contains delimiter, encapsulate in quotes to keep as óne field
-                if (strings[i].Contains(_delimiter))
-                    strings[i] = $"\"{strings[i]}\"";
-            }
-
-            return String.Join(_delimiter, strings);
-        }
-        private byte[] StringToBytes(string str)
-        {
-            return _encoding.GetBytes(str);
-        }
-        private byte[] DataToBytes(T data)
-        {
-            return StringToBytes(DataToString(data));
-        }
-
-        protected void AppendData(T data)
-        {
-            AppendString(DataToString(data));
-        }
-        private void AppendData(T data, FileStream fileStream)
-        {
-            AppendString(DataToString(data), fileStream);
-        }
-        private void AppendString(string str, FileStream fileStream)
-        {
-            fileStream.Seek(0, SeekOrigin.End);
-            fileStream.Write(StringToBytes(str));
-            fileStream.Write(StringToBytes(_newLine));
-        }
-        private void AppendString(string str)
-        {
-            AppendString(str, _fileStream);
         }
 
         protected IEnumerable<T> GetData()
@@ -129,6 +60,74 @@ namespace OopEksamen.Classes.Csv
             }
             yield break;
         }
+
+        private FileStream OpenStream()
+        {
+            return OpenStream(FilePath);
+        }
+        private FileStream OpenStream(string filePath)
+        {
+            bool newFile = !File.Exists(filePath);
+            if (newFile)
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+            }
+
+            var stream = File.Open(FilePath, FileMode.OpenOrCreate);
+
+            if (newFile)
+            {
+                foreach (var header in _headerLines)
+                {
+                    AppendString(header, stream);
+                }
+            }
+
+            return stream;
+        }
+
+        protected void AppendData(T data)
+        {
+            AppendString(DataToString(data));
+        }
+        private void AppendData(T data, FileStream fileStream)
+        {
+            AppendString(DataToString(data), fileStream);
+        }
+        private void AppendString(string str, FileStream fileStream)
+        {
+            fileStream.Seek(0, SeekOrigin.End);
+            fileStream.Write(StringToBytes(str));
+            fileStream.Write(StringToBytes(_newLine));
+        }
+        private void AppendString(string str)
+        {
+            AppendString(str, _fileStream);
+        }
+        private string DataToString(T data)
+        {
+            var strings = DataEncode(data).ToArray();
+            for (var i = 0; i < strings.Length; i++)
+            {
+                // Escape quotes
+                strings[i] = strings[i].Replace("\"", "\\\"");
+
+                // If contains delimiter, encapsulate in quotes to keep as óne field
+                if (strings[i].Contains(_delimiter))
+                    strings[i] = $"\"{strings[i]}\"";
+            }
+
+            return String.Join(_delimiter, strings);
+        }
+        private byte[] StringToBytes(string str)
+        {
+            return _encoding.GetBytes(str);
+        }
+        private byte[] DataToBytes(T data)
+        {
+            return StringToBytes(DataToString(data));
+        }
+
 
         protected void ReWriteFileWithData(IEnumerable<T> data)
         {

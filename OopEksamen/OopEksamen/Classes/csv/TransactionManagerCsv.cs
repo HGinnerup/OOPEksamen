@@ -3,6 +3,7 @@ using OopEksamen.Models;
 using OopEksamen.Models.Transactions;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -46,7 +47,7 @@ namespace OopEksamen.Classes.Csv
                     data.ID.ToString(),
                     data.User.Username,
                     data.Date.ToString(),
-                    ((int)data.Amount).ToString()
+                    ((decimal)data.Amount).ToString(CultureInfo.InvariantCulture)
                 };
             }
             else if (data is BuyTransaction)
@@ -58,7 +59,7 @@ namespace OopEksamen.Classes.Csv
                     data.ID.ToString(),
                     data.User.Username,
                     data.Date.ToString(),
-                    ((int)data.Amount).ToString(),
+                    ((decimal)data.Amount).ToString(CultureInfo.InvariantCulture),
                     (data as BuyTransaction).Product.ID.ToString()
                 };
             }
@@ -70,7 +71,7 @@ namespace OopEksamen.Classes.Csv
                     data.ID.ToString(),
                     data.User.Username,
                     data.Date.ToString(),
-                    ((int)data.Amount).ToString(),
+                    ((decimal)data.Amount).ToString(CultureInfo.InvariantCulture),
                     (data as MultiBuyTransaction).Product.ID.ToString(),
                     (data as MultiBuyTransaction).Count.ToString()
                 };
@@ -84,7 +85,7 @@ namespace OopEksamen.Classes.Csv
             var iD = uint.Parse(data[1]);
             var username = data[2];
             var date = DateTime.Parse(data[3]);
-            var amount = int.Parse(data[4]);
+            var amount = decimal.Parse(data[4], CultureInfo.InvariantCulture);
 
             var user = _stregSystem.GetUserByUsername(username);
 

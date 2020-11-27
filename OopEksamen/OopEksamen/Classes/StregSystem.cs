@@ -21,7 +21,7 @@ namespace OopEksamen.Classes
 
         public StregSystem(string logDirectory = "logs", string dataPath = "data")
         {
-            ProductManager = new ProductManagerCsv(Path.Combine(dataPath, "products.csv"), delimiter: ';');
+            ProductManager = new ProductManagerCsv(Path.Combine(dataPath, "products.csv"));
             ActiveProducts = ProductManager.Products.Where(i => i.Active);
             UserManager = new UserManagerCsv(Path.Combine(dataPath, "users.csv"));
             TransactionManager = new TransactionManagerCsv(Path.Combine(dataPath, "transactions.csv"), this);
