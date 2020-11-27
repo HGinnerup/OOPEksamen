@@ -9,6 +9,13 @@ namespace OopEksamen.Classes.Csv
 {
     public abstract class CsvManagerBase<T> : IDisposable
     {
+
+        private char _delimiter { get; set; }
+        private string _newLine { get; set; }
+        private Encoding _encoding { get; set; }
+        private uint _headerLineCount { get; set; }
+        private IEnumerable<string> _headerLines { get; set; }
+
         public CsvManagerBase(string filePath, IEnumerable<string> headerLines, char delimiter = ',', string newLine = null, Encoding encoding = null)
         {
             FilePath = filePath;
@@ -51,11 +58,6 @@ namespace OopEksamen.Classes.Csv
         }
 
 
-        private char _delimiter { get; set; }
-        private string _newLine { get; set; }
-        private Encoding _encoding { get; set; }
-        private uint _headerLineCount { get; set; }
-        private IEnumerable<string> _headerLines { get; set; }
 
         protected abstract T DataParse(string[] data);
         protected abstract string[] DataEncode(T data);

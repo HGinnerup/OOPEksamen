@@ -8,10 +8,14 @@ namespace OopEksamen.Classes
 {
     internal class ActionLogger : IDisposable
     {
+        public string LogPath { get; private set; }
+        private FileStream _fileStream { get; set; }
+        private Encoding _encoding { get; set; }
+
+
         public ActionLogger(string logPath)
         {
             LogPath = logPath;
-
             
             Directory.CreateDirectory(Path.GetDirectoryName(logPath)); // Ensure existance of directory
             _fileStream = File.OpenWrite(LogPath);
@@ -23,11 +27,6 @@ namespace OopEksamen.Classes
             _fileStream = File.OpenWrite(LogPath);
             _encoding = encoding;
         }
-
-        public string LogPath { get; private set; }
-        private FileStream _fileStream { get; set; }
-
-        private Encoding _encoding { get; set; }
 
         private string GetTimeStamp() => DateTime.Now.ToString("[YYYY-MM-DD hh:mm:ss] ");
 

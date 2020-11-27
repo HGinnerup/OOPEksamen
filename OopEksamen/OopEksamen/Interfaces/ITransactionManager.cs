@@ -10,7 +10,7 @@ namespace OopEksamen.Interfaces
     {
         IEnumerable<Transaction> Transactions { get; }
         IEnumerable<Transaction> GetTransactions(Func<Transaction, bool> predicate);
-        void AddTransaction(Transaction product);
+        void AddTransaction(Transaction transaction);
         ulong GetAvailableID();
     }
 }

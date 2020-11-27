@@ -20,6 +20,13 @@ namespace OopEksamen.Models.Transactions
             User = user;
             Amount = amount;
         }
+        public Transaction(ulong id, User user, Money amount, DateTime dateTime)
+        {
+            ID = id;
+            User = user;
+            Amount = amount;
+            Date = dateTime;
+        }
 
         public bool Executed { get; protected set; } = false;
         public abstract void Execute();

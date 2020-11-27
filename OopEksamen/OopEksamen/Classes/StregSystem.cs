@@ -24,7 +24,7 @@ namespace OopEksamen.Classes
             ProductManager = new ProductManagerCsv(Path.Combine(dataPath, "products.csv"), delimiter: ';');
             ActiveProducts = ProductManager.Products; //.Where(i => i.Active);
             UserManager = new UserManagerCsv(Path.Combine(dataPath, "users.csv"));
-            TransactionManager = new TransactionManagerCsv(Path.Combine(dataPath, "transactions.csv"));
+            TransactionManager = new TransactionManagerCsv(Path.Combine(dataPath, "transactions.csv"), this);
             _transactionLogger = new ActionLogger(Path.Combine(logDirectory, "transactions.log"));
         }
 
