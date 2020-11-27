@@ -9,6 +9,7 @@ namespace OopEksamen.Interfaces
 {
     public interface IStregsystemUI : IDisposable
     {
+        void DisplayActiveProducts();
         void DisplayUserNotFound(string username);
         void DisplayProductNotFound(uint productID);
         void DisplayUserInfo(User user, IEnumerable<Transaction> transactions);

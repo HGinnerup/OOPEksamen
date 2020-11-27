@@ -13,11 +13,20 @@ namespace OopEksamen.Classes
         public event StregsystemCommand CommandEntered;
         public bool Running { get; private set; } = false;
 
+        private IStregSystem _stregsystem { get; set; }
+        public StregsystemUICLI(IStregSystem stregSystem)
+        {
+            _stregsystem = stregSystem;
+        }
+
         protected virtual string ReadLine() => Console.ReadLine(); // To enable unittest
         public void Start()
         {
             Console.WriteLine("Welcome to stregsystemCLI");
             Running = true;
+
+            DisplayActiveProducts();
+
             while (Running)
             {
                 var rawString = ReadLine();
@@ -91,6 +100,9 @@ namespace OopEksamen.Classes
             Console.WriteLine($"Unknown user \"{username}\"");
         }
 
-
+        public void DisplayActiveProducts()
+        {
+            foreach (var product in _stregsystem.ActiveProducts) Console.WriteLine(product);
+        }
     }
 }

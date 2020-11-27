@@ -11,16 +11,12 @@ namespace OopEksamen
         {
             var visualStudioSolutionPath = @"..\..\..\..";
             using IStregSystem stregSystem = new StregSystem(dataPath: Path.Join(visualStudioSolutionPath, @"data"));
-            using IStregsystemUI stregSystemUI = new StregsystemUICLI();
-
-            foreach (var product in stregSystem.ActiveProducts)
-            {
-                Console.WriteLine($"{product.ID}, {product.Name}, {product.Price}");
-            }
+            using IStregsystemUI stregSystemUI = new StregsystemUICLI(stregSystem);
 
             new StregsystemController(stregSystem, stregSystemUI);
 
             stregSystemUI.Start();
+
         }
     }
 }
